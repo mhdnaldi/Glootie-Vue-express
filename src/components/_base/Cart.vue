@@ -1,6 +1,6 @@
 <template>
   <b-col cols lg="4" sm="12" xs="12" class="card-image">
-    <div class="carts">
+    <!-- <div class="carts">
       <div>
         <img src="../../assets/img/bear.png" alt />
       </div>
@@ -27,8 +27,8 @@
       <div class="price">
         <h6>Rp. 20000</h6>
       </div>
-    </div>
-    <div v-show="false">
+    </div>-->
+    <div v-show="true">
       <img src="../../assets/icons/cart.png" alt />
       <h3>Your cart is empty</h3>
       <h5>Please add some items from the menu</h5>

@@ -1,3 +1,4 @@
+
 <template>
   <section>
     <b-row>
@@ -41,8 +42,50 @@
             </div>
           </b-col>
         </b-row>
-        <b-row class="chart">
+        <b-row class="charts">
           <b-col cols="11"></b-col>
+        </b-row>
+        <b-row>
+          <b-col cols lg="11" class="revenue">
+            <div>
+              <h4>Recent Order</h4>
+            </div>
+            <div>
+              <b-dropdown text="Today">
+                <b-dropdown-item href="#">An item</b-dropdown-item>
+                <b-dropdown-item href="#">Another item</b-dropdown-item>
+              </b-dropdown>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols lg="11" class="recent">
+            <div>
+              <h6>INVOICES</h6>
+              <hr />
+              <h6>#6737212</h6>
+            </div>
+            <div>
+              <h6>Cashier</h6>
+              <hr />
+              <h6>Cashier 1</h6>
+            </div>
+            <div>
+              <h6>DATE</h6>
+              <hr />
+              <h6>20 Mei 2021</h6>
+            </div>
+            <div>
+              <h6>ORDERS</h6>
+              <hr />
+              <h6>Orange Juice</h6>
+            </div>
+            <div>
+              <h6>Amount</h6>
+              <hr />
+              <h6>Rp. 20000</h6>
+            </div>
+          </b-col>
         </b-row>
       </b-col>
     </b-row>
@@ -50,6 +93,28 @@
 </template>
 
 <script>
+// var ctx = document.getElementById('myChart').getContext('2d')
+// var chart = new Chart(ctx, {
+//   // The type of chart we want to create
+//   type: 'line',
+
+//   // The data for our dataset
+//   data: {
+//     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//     datasets: [
+//       {
+//         label: 'My First dataset',
+//         backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30, 45]
+//       }
+//     ]
+//   },
+
+//   // Configuration options go here
+//   options: {}
+// })
+// ---------------------------------------------------
 import Aside from '../components/_base/Aside'
 export default {
   components: {
@@ -97,6 +162,8 @@ h5 {
     #fbb2b4 30.05%,
     rgba(255, 143, 178, 0) 133.19%
   );
+  filter: drop-shadow(10px 15px 10px rgba(255, 143, 178, 0.25));
+  border-radius: 10px;
 }
 
 .orders {
@@ -105,6 +172,8 @@ h5 {
     #29dfff 30.05%,
     rgba(41, 223, 255, 0) 133.19%
   );
+  filter: drop-shadow(10px 15px 10px rgba(41, 223, 255, 0.25));
+  border-radius: 10px;
 }
 
 .year-income {
@@ -113,6 +182,8 @@ h5 {
     #ab84c8 30.05%,
     rgba(241, 201, 236, 0) 133.19%
   );
+  filter: drop-shadow(10px 15px 10px rgba(241, 201, 236, 0.25));
+  border-radius: 10px;
 }
 
 .revenue {
@@ -120,5 +191,62 @@ h5 {
   margin: 20px 0px 10px 25px;
   display: flex;
   justify-content: space-between;
+}
+
+.charts {
+  height: 400px;
+  background-color: aqua;
+  margin: 10px 40px 20px 10px;
+}
+
+.recent {
+  margin: 30px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.recent div {
+  text-align: center;
+}
+
+@media (max-width: 991.98px) {
+  .menus {
+    display: none;
+  }
+
+  .box {
+    /* text-align: center; */
+    margin: 20px auto;
+  }
+
+  .recent {
+    grid-template-columns: 1fr;
+  }
+
+  .recent div {
+    /* border: 1px solid grey; */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) inset;
+    border-radius: 20px;
+    margin: 20px;
+  }
+
+  hr {
+    display: none;
+  }
+  .recent div h6 {
+    padding-top: 8px;
+  }
+
+  .charts {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 660.98px) {
+  .revenue {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+  }
 }
 </style>

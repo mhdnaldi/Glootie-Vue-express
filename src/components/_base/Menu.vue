@@ -1,10 +1,15 @@
 <template>
   <b-col cols lg="7" md="12" sm="12" xs="12" class="menu-items">
-    <div v-for="(value, index) in products" :key="index" class="cards">
+    <div
+      v-for="(value, index) in products"
+      :key="index"
+      class="cards"
+      style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
+    >
       <img src="../../assets/img/bear.png" alt />
-      <h5>{{ value.menu_name }}</h5>
+      <h5 style="color: #eee">{{ value.menu_name }}</h5>
       <div class="flex">
-        <h6>Rp. {{ value.menu_price }}</h6>
+        <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
         <b-button class="btn" variant="primary" size="sm">ADD</b-button>
       </div>
     </div>
@@ -25,7 +30,7 @@ div {
 }
 
 img {
-  width: 240px;
+  width: 220px;
 }
 
 h5 {
@@ -56,7 +61,7 @@ h6 {
   justify-content: space-between;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1024.98px) {
   .menu-items {
     grid-template-columns: 1fr 1fr;
     gap: 5px;
@@ -75,6 +80,12 @@ h6 {
   .btn {
     margin-top: 5px;
   }
+
+  .cards {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) inset;
+    margin: 10px 20px;
+    background-color: darkgrey;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -86,11 +97,17 @@ h6 {
     text-align: center;
   }
   img {
-    width: 220px;
+    width: 250px;
   }
 
   .flex {
     display: block;
+  }
+
+  .cards {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) inset;
+    margin: 10px 40px;
+    background-color: darkgrey;
   }
 }
 </style>
