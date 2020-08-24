@@ -114,6 +114,7 @@ export default {
         .then((res) => {
           this.isMsg = res.data.msg
           this.alert = true
+          this.getMenu()
           setTimeout(() => {
             this.alert = false
           }, 3000)
@@ -137,6 +138,7 @@ export default {
         .then((res) => {
           this.isMsg = res.data.msg
           this.alert = true
+          this.getMenu()
           setTimeout(() => {
             this.alert = false
           }, 3000)
@@ -148,6 +150,7 @@ export default {
       axios.delete(`http://localhost:3000/menu/${this.menu_id}`).then((res) => {
         this.isMsg = res.data.msg
         this.alert = true
+        this.getMenu()
         setTimeout(() => {
           this.alert = false
         }, 7000)
