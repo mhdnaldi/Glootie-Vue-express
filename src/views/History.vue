@@ -1,4 +1,3 @@
-
 <template>
   <section>
     <b-row>
@@ -43,7 +42,7 @@
           </b-col>
         </b-row>
         <b-row class="charts">
-          <b-col cols="11"></b-col>
+          <b-col cols="11"> </b-col>
         </b-row>
         <b-row>
           <b-col cols lg="11" class="revenue">
@@ -93,28 +92,6 @@
 </template>
 
 <script>
-// var ctx = document.getElementById('myChart').getContext('2d')
-// var chart = new Chart(ctx, {
-//   // The type of chart we want to create
-//   type: 'line',
-
-//   // The data for our dataset
-//   data: {
-//     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//     datasets: [
-//       {
-//         label: 'My First dataset',
-//         backgroundColor: 'rgb(255, 99, 132)',
-//         borderColor: 'rgb(255, 99, 132)',
-//         data: [0, 10, 5, 2, 20, 30, 45]
-//       }
-//     ]
-//   },
-
-//   // Configuration options go here
-//   options: {}
-// })
-// ---------------------------------------------------
 import Aside from '../components/_base/Aside'
 export default {
   components: {
@@ -195,7 +172,7 @@ h5 {
 
 .charts {
   height: 400px;
-  background-color: aqua;
+  /* background-color: aqua; */
   margin: 10px 40px 20px 10px;
 }
 

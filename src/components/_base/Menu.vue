@@ -30,7 +30,8 @@ export default {
       limit: 100,
       products: [],
       cart: [],
-      check: false
+      check: false,
+      count: 1
     }
   },
   created() {
@@ -50,20 +51,16 @@ export default {
         menu_name: data.menu_name,
         menu_id: data.menu_id,
         menu_price: data.menu_price,
-        qty: 1
+        qty: 1,
+        check: true
       }
+      // this.check.append(data.menu_id)
 
       this.cart = [...this.cart, setCart]
+      // console.log(this.cart.check)
 
-      const check = this.cart.map((value) => {
-        if ((value.menu_id = data.menu_id)) {
-          return (this.check = true)
-        }
-      })
-
-      console.log(check)
-
-      // console.log(setCart)
+      this.$emit('dataCart', this.cart) /* 1 */
+      // console.log(this.cart)
     }
   }
 }
@@ -71,14 +68,12 @@ export default {
 
 <style scoped>
 .cards {
-  /* border: 1px solid white; */
-  /* display: relative; */
   border-radius: 20px;
   margin: 5px 1px;
   box-sizing: border-box;
 }
 .img-check {
-  width: 200px;
+  width: 220px;
   position: relative;
   top: 0;
 }
@@ -101,14 +96,12 @@ export default {
 }
 
 .menu-items {
-  /* text-align: center; */
-  /* position: relative; */
   box-sizing: border-box;
   background-color: #cecece;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* gap: 5px; */
 }
+
 div {
   padding: 10px;
   box-sizing: border-box;
@@ -128,7 +121,6 @@ h6 {
 }
 
 .btn {
-  /* margin-right: 10px; */
   margin-top: -16px;
   border-radius: 15px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
@@ -154,8 +146,8 @@ h6 {
   .img-check {
     text-align: center;
     margin: auto;
-    width: 220px;
-    height: 176px;
+    width: 240px;
+    height: 206px;
   }
 
   .menu-items {
@@ -163,7 +155,7 @@ h6 {
     gap: 5px;
   }
   h5 {
-    margin-top: 30px;
+    margin-top: 0px;
     text-align: center;
   }
   h6 {
@@ -193,16 +185,16 @@ h6 {
 
 @media (max-width: 575.98px) {
   .img-check {
-    width: 250px;
-    height: 201px;
+    width: 280px;
+    height: 231px;
     margin: auto;
   }
   .check {
-    width: 250px;
+    width: 220px;
     height: 201px;
   }
   h5 {
-    margin-top: 30px;
+    margin-top: 0px;
     text-align: center;
   }
   h6 {

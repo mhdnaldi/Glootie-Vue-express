@@ -3,8 +3,9 @@
     <Navbar />
     <b-row>
       <Aside />
-      <Menu />
-      <Cart />
+      <!-- 3 cart dari data == $event / this.cart -->
+      <Menu @dataCart="cart = $event" />
+      <Cart :dataCart="cart" />
     </b-row>
   </div>
 </template>
@@ -22,6 +23,12 @@ export default {
     Aside,
     Menu,
     Cart
+  },
+  data() {
+    return {
+      // 2. buat variabel baru yg sama seperti this.cart dihalaman menu
+      cart: []
+    }
   }
 }
 </script>

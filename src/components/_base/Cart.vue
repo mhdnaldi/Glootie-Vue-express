@@ -1,40 +1,44 @@
 <template>
   <b-col cols lg="4" sm="12" xs="12" class="card-image">
-    <!-- <div class="carts">
-      <div>
-        <img src="../../assets/img/bear.png" alt />
-      </div>
-      <div class="info">
-        <h5>Coffe latte</h5>
-        <div class="desc">-</div>
-        <div class="num">1</div>
-        <div class="asc">+</div>
-      </div>
-      <div class="price">
-        <h6>Rp. 20000</h6>
-      </div>
-    </div>
-    <div class="carts">
-      <div>
-        <img src="../../assets/img/bear.png" alt />
-      </div>
-      <div class="info">
-        <h5>Coffe latte</h5>
-        <div class="desc">-</div>
-        <div class="num">1</div>
-        <div class="asc">+</div>
-      </div>
-      <div class="price">
-        <h6>Rp. 20000</h6>
-      </div>
-    </div>-->
-    <div v-show="true">
+    <div v-if="dataCart.length < 1">
       <img src="../../assets/icons/cart.png" alt />
       <h3>Your cart is empty</h3>
       <h5>Please add some items from the menu</h5>
     </div>
+    <div class="carts" v-for="(value, index) in dataCart" :key="index">
+      <div>
+        <img src="../../assets/img/bear.png" alt />
+      </div>
+      <div class="info">
+        <h5>{{value.menu_name}}</h5>
+        <div class="desc">-</div>
+        <div class="num">{{qty}}</div>
+        <div class="asc">+</div>
+      </div>
+      <div class="price">
+        <h6>Rp. {{value.menu_price}}</h6>
+      </div>
+    </div>
   </b-col>
 </template>
+
+<script>
+export default {
+  name: 'cart',
+  data() {
+    return {
+      qty: 1
+    }
+  },
+  // 4 props itu gunanya untuk menerima data dari file Home.js
+  props: ['dataCart'],
+  methods: {
+    // asc(qty) {
+    //   this.qty += qty
+    // }
+  }
+}
+</script>
 
 <style scoped>
 /* carts */
@@ -66,6 +70,10 @@
   text-align: center;
   margin-right: 5px;
   color: black;
+}
+
+.info h5 {
+  font-size: 16px;
 }
 
 img {
