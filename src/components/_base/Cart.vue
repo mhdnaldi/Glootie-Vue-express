@@ -11,13 +11,22 @@
       </div>
       <div class="info">
         <h5>{{value.menu_name}}</h5>
-        <div class="desc" @click="desc(value.qty)">-</div>
+        <div class="desc" v-if="value.qty > 1" @click="desc(value)">-</div>
         <div class="num">{{value.qty}}</div>
         <div class="asc" @click="asc(value)">+</div>
       </div>
       <div class="price">
         <h6>Rp. {{value.menu_price}}</h6>
       </div>
+    </div>
+    <div class="Total:" style="text-align: center" v-if="dataCart.length > 0">
+      <b-button @click="checkTotal()">Total</b-button>
+    </div>
+    <div class="totalPrice" v-if="totalPrice > 0">
+      <div>
+        <h6>Total Price:</h6>
+      </div>
+      <div>Rp. {{totalPrice}}</div>
     </div>
   </b-col>
 </template>
@@ -28,27 +37,43 @@ export default {
   data() {
     return {
       qty: 1,
-      newQty: 0
+      newQty: 0,
+      tax: 0,
+      totalPrice: 0
     }
   },
   // 4 props itu gunanya untuk menerima data dari file Home.js
   props: ['dataCart'],
   methods: {
+    checkTotal() {
+      const price = this.dataCart.map((value, i) => {
+        return value.menu_price
+      })
+      // console.log(price)
+      const totalPrice = price.reduce((value, i) => {
+        return value + i
+      })
+      this.totalPrice = totalPrice
+      console.log(totalPrice)
+    },
     asc(data) {
-      //  let newQty = data.qty
-      // newQty -= this.qty
-      // console.log(newQty)
+      data.qty++
+      console.log(data.qty)
     },
     desc(data) {
-      // let newQty = data.qty
-      // newQty -= this.qty
-      // console.log(newQty)
+      data.qty--
     }
   }
 }
 </script>
 
 <style scoped>
+.totalPrice {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
 .cart-img {
   animation: anim 3s infinite;
 }

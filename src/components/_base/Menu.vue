@@ -40,6 +40,9 @@ export default {
   props: {
     dataText: {
       type: String
+    },
+    sortData: {
+      type: Object
     }
   },
   watch: {
@@ -62,7 +65,6 @@ export default {
       axios
         .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
         .then((res) => {
-          console.log(res)
           this.products = res.data
         })
         .catch((err) => console.log(err))
@@ -86,6 +88,7 @@ export default {
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
       return this.cart.some((value) => value.menu_id === data.menu_id)
+      // console.log(this.sortData)
     }
   }
 }

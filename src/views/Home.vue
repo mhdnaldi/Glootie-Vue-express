@@ -3,11 +3,12 @@
     <!-- 2 menerima data gettext dari navbar.vue -->
     <Navbar @dataText="text = $event" :count="count" />
     <b-row>
-      <Aside />
+      <Aside @sortData="setSort" />
       <!-- 3 cart dari data == $event / this.cart -->
-      <Menu @dataCart="setCart" :dataText="text" />
+      <Menu @dataCart="setCart" :dataText="text" :sortData="sort" />
       <Cart :dataCart="cart" />
     </b-row>
+    <!-- <p style="text-align: center">{{sort.sortNameAsc}}</p> -->
   </div>
 </template>
 
@@ -27,17 +28,29 @@ export default {
   },
   data() {
     return {
-      // 2. buat variabel baru yg menampung dari data emit
+      // 2. buat variabel baru utk menampung dari data emit
       cart: [],
       text: '',
-      count: 0
+      count: 0,
+      sort: {
+        sortPriceAsc: [],
+        sortPriceDesc: [],
+        sortNameAsc: [],
+        sortNameDesc: []
+      }
     }
   },
   methods: {
+    // method untuk memasukkan data dari child ke parent
     setCart(data) {
-      // trigger data
       this.cart = data.cart
       this.count += data.count
+    },
+    setSort(data) {
+      this.sort.sortPriceAsc = data.priceLow
+      this.sort.sortPriceDesc = data.priceHigh
+      this.sort.sortNameAsc = data.nameLow
+      this.sort.sortNameDesc = data.nameHigh
     }
   }
 }
