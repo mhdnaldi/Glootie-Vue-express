@@ -16,7 +16,12 @@
             size="sm"
             @click="getInfo"
           >
-            <img style="width: 15px" src="../../assets/icons/magnifying-glass.png" alt />
+            <img
+              class="search-img"
+              style="width: 15px"
+              src="../../assets/icons/magnifying-glass.png"
+              alt
+            />
           </b-button>
         </form>
       </div>
@@ -30,7 +35,7 @@
     <b-col cols lg="4" sm="12" xs="12" justified class="nav-cart">
       <h2 class="text-center" style="margin-top: 10px">
         Cart
-        <span>0</span>
+        <span>{{count}}</span>
       </h2>
     </b-col>
   </b-row>
@@ -44,12 +49,13 @@ export default {
       getText: ''
     }
   },
+  props: ['count'],
   methods: {
     getInfo() {
       this.getText = this.form
-      // 1
+      // 1 mengirim getText ke home.vue
       console.log(this.getText)
-      this.$emit('text', this.getText)
+      this.$emit('dataText', this.getText)
     }
   }
 }
@@ -88,6 +94,19 @@ export default {
 
   img {
     width: 28px;
+  }
+
+  .two {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  input {
+    width: 120px;
+  }
+  .two {
+    margin-right: 10px;
   }
 }
 </style>

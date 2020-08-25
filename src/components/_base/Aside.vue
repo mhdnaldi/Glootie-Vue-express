@@ -15,6 +15,13 @@
         <img src="../../assets/icons/add.png" alt />
       </router-link>
     </div>
+    <div class="sort">
+      <b-dropdown id="dropdown-1" right text="Sort" size="sm" class="m-md-2">
+        <b-dropdown-item>First Action</b-dropdown-item>
+        <b-dropdown-item>Second Action</b-dropdown-item>
+        <b-dropdown-item>Third Action</b-dropdown-item>
+      </b-dropdown>
+    </div>
   </b-col>
 </template>
 
@@ -37,6 +44,9 @@ img {
   }
   img {
     width: 30px;
+  }
+  .sort {
+    margin-top: 24px;
   }
 }
 </style>

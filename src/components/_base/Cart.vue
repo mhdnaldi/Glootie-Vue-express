@@ -1,9 +1,9 @@
 <template>
   <b-col cols lg="4" sm="12" xs="12" class="card-image">
     <div v-if="dataCart.length < 1">
-      <img src="../../assets/icons/cart.png" alt />
+      <img src="../../assets/icons/cart.png" alt class="cart-img" />
       <h3>Your cart is empty</h3>
-      <h5>Please add some items from the menu</h5>
+      <h5 style="color:darkgrey">Please add some items from the menu</h5>
     </div>
     <div class="carts" v-for="(value, index) in dataCart" :key="index">
       <div>
@@ -49,6 +49,21 @@ export default {
 </script>
 
 <style scoped>
+.cart-img {
+  animation: anim 3s infinite;
+}
+
+@keyframes anim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  110% {
+    transform: scale(1);
+  }
+}
 /* carts */
 .carts {
   display: flex;

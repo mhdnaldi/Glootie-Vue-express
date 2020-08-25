@@ -36,13 +36,34 @@ export default {
   created() {
     this.getMenu()
   },
-  props: ['text'], // data text dari search
+  // mengubah props dataText menjadi sebuah string
+  props: {
+    dataText: {
+      type: String
+    }
+  },
+  watch: {
+    dataText() {
+      // search method=
+      this.searchMenu()
+    }
+  },
   methods: {
     getMenu() {
       axios // 1. MENGAMBIL SEMUA DATA
         .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
         .then((res) => {
           this.products = res.data.data
+        })
+        .catch((err) => console.log(err))
+    },
+    // end point search
+    searchMenu() {
+      axios
+        .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
+        .then((res) => {
+          console.log(res)
+          this.products = res.data
         })
         .catch((err) => console.log(err))
     },
@@ -54,7 +75,13 @@ export default {
         qty: 1
       }
       this.cart = [...this.cart, setCart]
-      this.$emit('dataCart', this.cart) /* 1 */
+      //  1OBJECT YG DIKIRIM KE HOME.VUE
+      const setData = {
+        cart: this.cart,
+        count: this.count
+      }
+      this.$emit('dataCart', setData) /* 1 */
+      // this.$emit('count', 1)
     },
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
@@ -188,8 +215,14 @@ h6 {
     margin: auto;
   }
   .check {
-    width: 220px;
+    left: 15px;
+    width: 250px;
     height: 201px;
+  }
+
+  .check img {
+    left: 108px;
+    top: 80px;
   }
   h5 {
     margin-top: 0px;

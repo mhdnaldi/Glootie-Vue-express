@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <Navbar @dataText="text = $event" />
+    <!-- 2 menerima data gettext dari navbar.vue -->
+    <Navbar @dataText="text = $event" :count="count" />
     <b-row>
       <Aside />
       <!-- 3 cart dari data == $event / this.cart -->
-      <Menu @dataCart="cart = $event" :dataText="text" />
+      <Menu @dataCart="setCart" :dataText="text" />
       <Cart :dataCart="cart" />
     </b-row>
   </div>
@@ -26,9 +27,17 @@ export default {
   },
   data() {
     return {
-      // 2. buat variabel baru yg sama seperti this.cart dihalaman menu
+      // 2. buat variabel baru yg menampung dari data emit
       cart: [],
-      text: ''
+      text: '',
+      count: 0
+    }
+  },
+  methods: {
+    setCart(data) {
+      // trigger data
+      this.cart = data.cart
+      this.count += data.count
     }
   }
 }
