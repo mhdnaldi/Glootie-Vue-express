@@ -11,9 +11,9 @@
       </div>
       <div class="info">
         <h5>{{value.menu_name}}</h5>
-        <div class="desc">-</div>
-        <div class="num">{{qty}}</div>
-        <div class="asc">+</div>
+        <div class="desc" @click="desc(value.qty)">-</div>
+        <div class="num">{{value.qty}}</div>
+        <div class="asc" @click="asc(value)">+</div>
       </div>
       <div class="price">
         <h6>Rp. {{value.menu_price}}</h6>
@@ -27,15 +27,23 @@ export default {
   name: 'cart',
   data() {
     return {
-      qty: 1
+      qty: 1,
+      newQty: 0
     }
   },
   // 4 props itu gunanya untuk menerima data dari file Home.js
   props: ['dataCart'],
   methods: {
-    // asc(qty) {
-    //   this.qty += qty
-    // }
+    asc(data) {
+      //  let newQty = data.qty
+      // newQty -= this.qty
+      // console.log(newQty)
+    },
+    desc(data) {
+      // let newQty = data.qty
+      // newQty -= this.qty
+      // console.log(newQty)
+    }
   }
 }
 </script>

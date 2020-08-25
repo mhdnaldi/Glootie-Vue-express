@@ -8,7 +8,7 @@
     >
       <div class="img-check">
         <img src="../../assets/img/bear.png" alt />
-        <div class="check" v-show="check">
+        <div class="check" v-if="check(value)">
           <img src="../../assets/icons/check.png" alt />
         </div>
       </div>
@@ -30,13 +30,13 @@ export default {
       limit: 100,
       products: [],
       cart: [],
-      check: false,
       count: 1
     }
   },
   created() {
     this.getMenu()
   },
+  props: ['text'], // data text dari search
   methods: {
     getMenu() {
       axios // 1. MENGAMBIL SEMUA DATA
@@ -51,16 +51,14 @@ export default {
         menu_name: data.menu_name,
         menu_id: data.menu_id,
         menu_price: data.menu_price,
-        qty: 1,
-        check: true
+        qty: 1
       }
-      // this.check.append(data.menu_id)
-
       this.cart = [...this.cart, setCart]
-      // console.log(this.cart.check)
-
       this.$emit('dataCart', this.cart) /* 1 */
-      // console.log(this.cart)
+    },
+    check(data) {
+      // check data berdasarkan id terus di some jika idnya sama maka bernilai true
+      return this.cart.some((value) => value.menu_id === data.menu_id)
     }
   }
 }

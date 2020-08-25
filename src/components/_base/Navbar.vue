@@ -8,8 +8,24 @@
         <h2 class="title">Glootie</h2>
       </div>
       <div class="two">
-        <img src="../../assets/icons/magnifying-glass.png" alt />
+        <form v-on:submit.prevent="getInfo">
+          <input type="text" v-model="form" placeholder=" Search..." />
+          <b-button
+            type="submit"
+            style="border-radius: 5px; margin-top: -5px"
+            size="sm"
+            @click="getInfo"
+          >
+            <img style="width: 15px" src="../../assets/icons/magnifying-glass.png" alt />
+          </b-button>
+        </form>
       </div>
+      <!-- <div class="three">
+        <b-dropdown id="dropdown-1" text="Price" size="sm" class="m-md-2">
+          <b-dropdown-item>High to Low</b-dropdown-item>
+          <b-dropdown-item>Low to High</b-dropdown-item>
+        </b-dropdown>
+      </div>-->
     </b-col>
     <b-col cols lg="4" sm="12" xs="12" justified class="nav-cart">
       <h2 class="text-center" style="margin-top: 10px">
@@ -20,6 +36,25 @@
   </b-row>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      form: '',
+      getText: ''
+    }
+  },
+  methods: {
+    getInfo() {
+      this.getText = this.form
+      // 1
+      console.log(this.getText)
+      this.$emit('text', this.getText)
+    }
+  }
+}
+</script>
+
 <style>
 .navbar {
   display: flex;
@@ -29,10 +64,6 @@
 
 .navbar .one {
   margin-left: 25px;
-}
-
-.navbar .two {
-  margin-right: 25px;
 }
 
 .nav-cart {
