@@ -49,6 +49,7 @@ export default {
       const price = this.dataCart.map((value, i) => {
         return value.menu_price
       })
+
       // console.log(price)
       const totalPrice = price.reduce((value, i) => {
         return value + i
@@ -58,10 +59,12 @@ export default {
     },
     asc(data) {
       data.qty++
-      console.log(data.qty)
+      const newPrice = data.menu_price * data.qty
+      console.log(newPrice)
     },
     desc(data) {
       data.qty--
+      data.menu_price--
     }
   }
 }

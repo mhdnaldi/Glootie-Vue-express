@@ -3,12 +3,12 @@
     <!-- 2 menerima data gettext dari navbar.vue -->
     <Navbar @dataText="text = $event" :count="count" />
     <b-row>
-      <Aside @sortData="setSort" />
+      <Aside @sortItem="setSort" />
       <!-- 3 cart dari data == $event / this.cart -->
-      <Menu @dataCart="setCart" :dataText="text" :sortData="sort" />
+      <Menu @dataCart="setCart" :dataText="text" :sortItem="sort" />
       <Cart :dataCart="cart" />
     </b-row>
-    <!-- <p style="text-align: center">{{sort.sortNameAsc}}</p> -->
+    <!-- <p style="text-align: center">{{sort}}</p> -->
   </div>
 </template>
 
@@ -32,12 +32,7 @@ export default {
       cart: [],
       text: '',
       count: 0,
-      sort: {
-        sortPriceAsc: [],
-        sortPriceDesc: [],
-        sortNameAsc: [],
-        sortNameDesc: []
-      }
+      sort: ''
     }
   },
   methods: {
@@ -47,10 +42,7 @@ export default {
       this.count += data.count
     },
     setSort(data) {
-      this.sort.sortPriceAsc = data.priceLow
-      this.sort.sortPriceDesc = data.priceHigh
-      this.sort.sortNameAsc = data.nameLow
-      this.sort.sortNameDesc = data.nameHigh
+      this.sort = data
     }
   }
 }

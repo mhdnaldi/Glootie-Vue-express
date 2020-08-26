@@ -18,6 +18,7 @@
         <b-button class="btn" variant="primary" size="sm" @click="addToCart(value)">ADD</b-button>
       </div>
     </div>
+    <!-- <p>{{str}}</p> -->
   </b-col>
 </template>
 
@@ -41,20 +42,26 @@ export default {
     dataText: {
       type: String
     },
-    sortData: {
-      type: Object
+    sortItem: {
+      type: String
     }
   },
   watch: {
     dataText() {
-      // search method=
+      // search method
       this.searchMenu()
+    },
+    sortItem() {
+      this.getMenu()
     }
   },
   methods: {
     getMenu() {
+      const str = this.sortItem.split(' ')
       axios // 1. MENGAMBIL SEMUA DATA
-        .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
+        .get(
+          `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
+        )
         .then((res) => {
           this.products = res.data.data
         })
@@ -68,6 +75,9 @@ export default {
           this.products = res.data
         })
         .catch((err) => console.log(err))
+    },
+    sortMenu() {
+      // ENDPOINT SORT
     },
     addToCart(data) {
       const setCart = {
