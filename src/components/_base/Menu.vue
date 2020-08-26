@@ -18,7 +18,16 @@
         <b-button class="btn" variant="primary" size="sm" @click="addToCart(value)">ADD</b-button>
       </div>
     </div>
-    <!-- <p>{{str}}</p> -->
+    <div>
+      <b-pagination
+        class="pgn"
+        v-model="page"
+        :total-rows="rows"
+        :per-page="limit"
+        align="center"
+        @change="getMenu"
+      ></b-pagination>
+    </div>
   </b-col>
 </template>
 
@@ -28,10 +37,16 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 100,
+      limit: 9,
       products: [],
       cart: [],
-      count: 1
+      count: 1,
+      pagination: {}
+    }
+  },
+  computed: {
+    rows() {
+      return this.pagination.totalData
     }
   },
   created() {
@@ -63,6 +78,7 @@ export default {
           `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
         )
         .then((res) => {
+          this.pagination = res.data.pagination
           this.products = res.data.data
         })
         .catch((err) => console.log(err))
@@ -105,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+.pgn {
+  margin: auto;
+}
 .cards {
   border-radius: 20px;
   margin: 5px 1px;

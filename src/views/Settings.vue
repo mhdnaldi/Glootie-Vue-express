@@ -105,6 +105,8 @@ export default {
         .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
         .then((res) => {
           this.products = res.data.data
+          this.$emit('allProduct', this.products)
+          console.log(this.products)
         })
         .catch((err) => console.log(err))
     },
