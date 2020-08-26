@@ -5,8 +5,8 @@
     <b-row>
       <Aside @sortItem="setSort" />
       <!-- 3 cart dari data == $event / this.cart -->
-      <Menu @dataCart="setCart" :dataText="text" :sortItem="sort" />
-      <Cart :dataCart="cart" />
+      <Menu @orders="setCart" :dataText="text" :sortItem="sort" />
+      <Cart :orders="cart" />
     </b-row>
     <!-- <p style="text-align: center">{{sort}}</p> -->
   </div>

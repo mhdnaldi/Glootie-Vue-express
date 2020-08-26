@@ -17,8 +17,8 @@
     </div>
     <div class="sort">
       <b-dropdown id="dropdown-1" right text="Sort" size="sm" class="m-md-2">
-        <b-dropdown-item @click="sortByPriceAsc">Price low-high</b-dropdown-item>
-        <b-dropdown-item @click="sortByPriceDesc">Price high-low</b-dropdown-item>
+        <b-dropdown-item @click="sortByPriceAsc">Price Low to High</b-dropdown-item>
+        <b-dropdown-item @click="sortByPriceDesc">Price High to Low</b-dropdown-item>
         <b-dropdown-item @click="sortByNameAsc">Name A-Z</b-dropdown-item>
         <b-dropdown-item @click="sortByNameDesc">Name Z-A</b-dropdown-item>
       </b-dropdown>

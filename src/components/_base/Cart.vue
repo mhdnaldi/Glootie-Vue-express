@@ -1,11 +1,11 @@
 <template>
   <b-col cols lg="4" sm="12" xs="12" class="card-image">
-    <div v-if="dataCart.length < 1">
+    <div v-if="orders.length < 1">
       <img src="../../assets/icons/cart.png" alt class="cart-img" />
       <h3>Your cart is empty</h3>
       <h5 style="color:darkgrey">Please add some items from the menu</h5>
     </div>
-    <div class="carts" v-for="(value, index) in dataCart" :key="index">
+    <div class="carts" v-for="(value, index) in orders" :key="index">
       <div>
         <img src="../../assets/img/bear.png" alt />
       </div>
@@ -19,7 +19,7 @@
         <h6>Rp. {{value.menu_price}}</h6>
       </div>
     </div>
-    <div class="Total:" style="text-align: center" v-if="dataCart.length > 0">
+    <div class="total" style="text-align: center" v-if="orders.length > 0">
       <b-button @click="checkTotal()">Total</b-button>
     </div>
     <div class="totalPrice" v-if="totalPrice > 0">
@@ -28,10 +28,48 @@
       </div>
       <div>Rp. {{totalPrice}}</div>
     </div>
+    <h6
+      style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px"
+      v-if="totalPrice > 0"
+    >Harga belum termasuk PPN</h6>
+    <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
+      <b-button v-b-modal.modal-1>CHECKOUT</b-button>
+
+      <b-modal id="modal-1" title="Checkout">
+        <div class="modal-invoice">
+          <div>
+            <h6>Cashier</h6>
+          </div>
+          <div>
+            <h6>Receipt no: #</h6>
+          </div>
+        </div>
+        <div class="total-modal">
+          <div>
+            <p>aaaa</p>
+            <p>aaaa</p>
+            <p>aaaa</p>
+            <p>aaaa</p>
+            <p></p>
+          </div>
+          <div>
+            <p>:aaaa</p>
+            <p>:aaaa</p>
+            <p>:aaaa</p>
+            <p>:aaaa</p>
+            <p>Total:</p>
+          </div>
+        </div>
+      </b-modal>
+    </div>
+    <div class="cancel" v-if="totalPrice > 0">
+      <button>CANCEL</button>
+    </div>
   </b-col>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'cart',
   data() {
@@ -39,38 +77,96 @@ export default {
       qty: 1,
       newQty: 0,
       tax: 0,
-      totalPrice: 0
+      totalPrice: 0,
+      showCart: true
     }
   },
   // 4 props itu gunanya untuk menerima data dari file Home.js
-  props: ['dataCart'],
+  props: ['orders'],
   methods: {
+    postOrder() {
+      // const order = {
+      //   menu_id: this.orders.menu_id,
+      //   qty: this.orders.qty
+      // }
+      axios
+        .post('http://localhost:3000/order', this.orders)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     checkTotal() {
-      const price = this.dataCart.map((value, i) => {
+      // ----------------------------------
+      const order = {
+        menu_id: this.orders.menu_id,
+        qty: this.orders.qty
+      }
+      console.log(order)
+      console.log(this.orders)
+      // -------------------------------
+      const price = this.orders.map((value, i) => {
         return value.menu_price
       })
-
       // console.log(price)
       const totalPrice = price.reduce((value, i) => {
         return value + i
       })
       this.totalPrice = totalPrice
-      console.log(totalPrice)
     },
     asc(data) {
       data.qty++
-      const newPrice = data.menu_price * data.qty
-      console.log(newPrice)
+      // const newPrice = data.menu_price * data.qty
+      // console.log(newPrice)
     },
     desc(data) {
       data.qty--
-      data.menu_price--
     }
   }
 }
 </script>
 
 <style scoped>
+.total-modal,
+.modal-invoice {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout button {
+  background-color: aqua;
+  color: #111;
+  border-color: aqua;
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  width: 90%;
+}
+
+.total button {
+  background-color: red;
+  color: #111;
+  text-transform: uppercase;
+  border-color: red;
+  border-radius: 20px;
+  width: 30%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 10px 0;
+}
+
+.cancel button {
+  background-color: tomato;
+  color: #111;
+  border-color: tomato;
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  width: 90%;
+  padding: 5px;
+}
+
 .totalPrice {
   display: flex;
   justify-content: space-between;
@@ -117,7 +213,7 @@ export default {
 .asc {
   display: inline-block;
   width: 25px;
-  background-color: greenyellow;
+  background-color: aqua;
   text-align: center;
   margin-right: 5px;
   color: black;

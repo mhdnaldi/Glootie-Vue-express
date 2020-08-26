@@ -15,19 +15,21 @@
       <h5 style="color: #eee">{{ value.menu_name }}</h5>
       <div class="flex">
         <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-        <b-button class="btn" variant="primary" size="sm" @click="addToCart(value)">ADD</b-button>
+        <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
       </div>
     </div>
-    <div>
-      <b-pagination
-        class="pgn"
-        v-model="page"
-        :total-rows="rows"
-        :per-page="limit"
-        align="center"
-        @change="getMenu"
-      ></b-pagination>
-    </div>
+    <b-row>
+      <div class="pgn">
+        <b-pagination
+          v-model="page"
+          :total-rows="rows"
+          :per-page="limit"
+          variant="dark"
+          align="center"
+          @change="pageChange"
+        ></b-pagination>
+      </div>
+    </b-row>
   </b-col>
 </template>
 
@@ -37,7 +39,7 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 9,
+      limit: 8,
       products: [],
       cart: [],
       count: 1,
@@ -83,6 +85,11 @@ export default {
         })
         .catch((err) => console.log(err))
     },
+    pageChange(event) {
+      console.log(event)
+      this.page = event
+      this.getMenu()
+    },
     // end point search
     searchMenu() {
       axios
@@ -108,7 +115,7 @@ export default {
         cart: this.cart,
         count: this.count
       }
-      this.$emit('dataCart', setData) /* 1 */
+      this.$emit('orders', setData) /* 1 */
       // this.$emit('count', 1)
     },
     check(data) {
