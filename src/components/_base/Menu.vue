@@ -86,7 +86,8 @@ export default {
         .catch((err) => console.log(err))
     },
     pageChange(event) {
-      console.log(event)
+      this.$router.push(`?page=${event}`)
+      // console.log(event)
       this.page = event
       this.getMenu()
     },

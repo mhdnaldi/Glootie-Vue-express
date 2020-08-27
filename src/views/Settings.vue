@@ -61,8 +61,12 @@
                   style="margin: 10px 10px"
                   @click="updateItem(value)"
                   size="sm"
-                >Edit</b-button>
-                <b-button variant="danger" @click="deleteItem(value)" size="sm">Delete</b-button>
+                >
+                  <b-icon-tools font-scale="1"></b-icon-tools>
+                </b-button>
+                <b-button variant="danger" @click="deleteItem(value)" size="sm">
+                  <b-icon-trash font-scale="1"></b-icon-trash>
+                </b-button>
               </td>
             </tr>
           </table>
@@ -239,5 +243,12 @@ div {
   text-align: left;
   background-color: magenta;
   color: white;
+}
+
+@media (max-width: 660.98px) {
+  th,
+  td {
+    font-size: 13px;
+  }
 }
 </style>

@@ -16,7 +16,7 @@
         <div class="asc" @click="asc(value)">+</div>
       </div>
       <div class="price">
-        <h6>Rp. {{value.menu_price}}</h6>
+        <h6>Rp. {{value.menu_price * value.qty}}</h6>
       </div>
     </div>
     <div class="total" style="text-align: center" v-if="orders.length > 0">
@@ -29,9 +29,9 @@
       <div>Rp. {{totalPrice}}</div>
     </div>
     <h6
-      style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px"
+      style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
       v-if="totalPrice > 0"
-    >Harga belum termasuk PPN</h6>
+    >The Price Does Not Include Additional Taxes</h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
@@ -99,18 +99,9 @@ export default {
         })
     },
     checkTotal() {
-      // ----------------------------------
-      const order = {
-        menu_id: this.orders.menu_id,
-        qty: this.orders.qty
-      }
-      console.log(order)
-      console.log(this.orders)
-      // -------------------------------
       const price = this.orders.map((value, i) => {
-        return value.menu_price
+        return value.menu_price * value.qty
       })
-      // console.log(price)
       const totalPrice = price.reduce((value, i) => {
         return value + i
       })
@@ -118,8 +109,6 @@ export default {
     },
     asc(data) {
       data.qty++
-      // const newPrice = data.menu_price * data.qty
-      // console.log(newPrice)
     },
     desc(data) {
       data.qty--
@@ -217,6 +206,7 @@ export default {
   text-align: center;
   margin-right: 5px;
   color: black;
+  cursor: pointer;
 }
 
 .info h5 {
@@ -239,6 +229,17 @@ div {
   }
   img {
     width: 250px;
+  }
+
+  .totalPrice {
+    margin: 20px;
+  }
+  .totalPrice div:nth-child(even) {
+    text-align: right;
+    margin-right: 50px;
+  }
+  .totalPrice div:nth-child(odd) {
+    text-align: left;
   }
 }
 </style>
