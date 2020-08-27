@@ -53,8 +53,8 @@
             </div>
             <div>
               <b-dropdown text="Today">
-                <b-dropdown-item href="#">An item</b-dropdown-item>
-                <b-dropdown-item href="#">Another item</b-dropdown-item>
+                <b-dropdown-item>Today</b-dropdown-item>
+                <b-dropdown-item @click="weekHistory">This Week</b-dropdown-item>
               </b-dropdown>
             </div>
           </b-col>
@@ -95,9 +95,26 @@
 
 <script>
 import Aside from '../components/_base/Aside'
+import axios from 'axios'
 export default {
+  data() {
+    return {
+      thisWeekOrders: []
+    }
+  },
   components: {
     Aside
+  },
+  methods: {
+    weekHistory() {
+      axios
+        .get('http://localhost:3000/history/week')
+        .then((res) => {
+          this.thisWeekOrders = res.data.data
+          console.log(this.thisWeekOrders)
+        })
+        .catch((err) => console.log(err))
+    }
   }
 }
 </script>
