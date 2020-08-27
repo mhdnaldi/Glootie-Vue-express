@@ -38,26 +38,24 @@
       <b-modal id="modal-1" title="Checkout">
         <div class="modal-invoice">
           <div>
-            <h6>Cashier</h6>
+            <h6>Cashier: Cashier 1</h6>
           </div>
           <div>
-            <h6>Receipt no: #</h6>
+            <h6>Receipt no: #{{invoice}}</h6>
           </div>
         </div>
         <div class="total-modal">
           <div>
-            <p>aaaa</p>
-            <p>aaaa</p>
-            <p>aaaa</p>
-            <p>aaaa</p>
-            <p></p>
+            <p v-for="(value, index) in nameModal" :key="index">{{value}}</p>
           </div>
           <div>
-            <p>:aaaa</p>
-            <p>:aaaa</p>
-            <p>:aaaa</p>
-            <p>:aaaa</p>
-            <p>Total:</p>
+            <p v-for="(value, index) in qtyModal" :key="index">{{value}} x</p>
+          </div>
+          <div>
+            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{value}}</p>
+
+            <p>Tax 10%: {{taxes}}</p>
+            <p>Total: {{subTotal}}</p>
           </div>
         </div>
       </b-modal>
@@ -76,23 +74,49 @@ export default {
     return {
       qty: 1,
       newQty: 0,
-      tax: 0,
       totalPrice: 0,
-      showCart: true
+      //
+      invoice: '',
+      taxes: [],
+      subTotal: [],
+      allOrders: [],
+      priceModal: [],
+      qtyModal: [],
+      nameModal: []
     }
   },
   // 4 props itu gunanya untuk menerima data dari file Home.js
   props: ['orders'],
   methods: {
     postOrder() {
-      // const order = {
-      //   menu_id: this.orders.menu_id,
-      //   qty: this.orders.qty
-      // }
+      const price = this.orders.map((value, i) => {
+        return value.menu_price * value.qty
+      })
+      const name = this.orders.map((value, i) => {
+        return value.menu_name
+      })
+      const quantity = this.orders.map((value, i) => {
+        return value.qty
+      })
+
+      this.priceModal = price
+      this.nameModal = name
+      this.qtyModal = quantity
       axios
         .post('http://localhost:3000/order', this.orders)
         .then((res) => {
-          console.log(res)
+          this.taxes = res.data.data.tax
+          this.invoice = res.data.data.updateHistory.invoice
+          this.subTotal = res.data.data.updateHistory.history_subtotal
+
+          // --------------------
+          const setData = {
+            invoice: this.invoice,
+            orders: this.nameModal,
+            subtotal: this.subTotal,
+            date: new Date()
+          }
+          this.$emit('recentOrder', setData)
         })
         .catch((err) => {
           console.log(err)
@@ -107,6 +131,7 @@ export default {
       })
       this.totalPrice = totalPrice
     },
+
     asc(data) {
       data.qty++
     },

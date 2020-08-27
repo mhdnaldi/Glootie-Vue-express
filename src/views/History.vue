@@ -42,7 +42,9 @@
           </b-col>
         </b-row>
         <b-row class="charts">
-          <b-col cols="11"> </b-col>
+          <b-col cols="11">
+            <line-chart class="chart-lines" :data="{'2017-05-13': 2, '2017-05-14': 5}"></line-chart>
+          </b-col>
         </b-row>
         <b-row>
           <b-col cols lg="11" class="revenue">
@@ -101,6 +103,10 @@ export default {
 </script>
 
 <style scoped>
+.chart-lines {
+  margin: 10px 50px;
+}
+
 .menus img {
   padding: 14px 26px;
 }
@@ -171,8 +177,10 @@ h5 {
 }
 
 .charts {
-  height: 400px;
-  /* background-color: aqua; */
+  height: 320px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.3);
   margin: 10px 40px 20px 10px;
 }
 
@@ -187,6 +195,9 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
+  .chart-lines {
+    margin: 10px 30px;
+  }
   .menus {
     display: none;
   }
@@ -220,6 +231,9 @@ h5 {
 }
 
 @media (max-width: 660.98px) {
+  .chart-lines {
+    margin: 10px 10px;
+  }
   .revenue {
     display: block;
     text-align: center;

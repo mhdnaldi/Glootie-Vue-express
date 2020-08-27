@@ -108,9 +108,9 @@ export default {
       axios
         .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
         .then((res) => {
+          this.$router.push(`?page=${this.page}&limit=${this.limit}`)
           this.products = res.data.data
           this.$emit('allProduct', this.products)
-          console.log(this.products)
         })
         .catch((err) => console.log(err))
     },
@@ -136,6 +136,7 @@ export default {
       }
       this.isUpdate = true
       this.menu_id = data.menu_id
+      this.$router.push(`?=${this.menu_id}`)
     },
     patchMenu() {
       this.isUpdate = false
@@ -154,6 +155,7 @@ export default {
     deleteItem(data) {
       this.menu_id = data.menu_id
       axios.delete(`http://localhost:3000/menu/${this.menu_id}`).then((res) => {
+        this.$router.push(`?=${this.menu_id}`)
         this.isMsg = res.data.msg
         this.alert = true
         this.getMenu()

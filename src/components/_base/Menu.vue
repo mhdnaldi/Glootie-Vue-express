@@ -80,6 +80,9 @@ export default {
           `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
         )
         .then((res) => {
+          this.$router.push(
+            `?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
+          )
           this.pagination = res.data.pagination
           this.products = res.data.data
         })
@@ -96,6 +99,7 @@ export default {
       axios
         .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
         .then((res) => {
+          this.$router.push(`?name=${this.dataText}`)
           this.products = res.data
         })
         .catch((err) => console.log(err))

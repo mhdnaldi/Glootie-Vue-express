@@ -6,9 +6,9 @@
       <Aside @sortItem="setSort" />
       <!-- 3 cart dari data == $event / this.cart -->
       <Menu @orders="setCart" :dataText="text" :sortItem="sort" />
-      <Cart :orders="cart" />
+      <Cart :orders="cart" @recentOrder="recent" />
     </b-row>
-    <!-- <p style="text-align: center">{{sort}}</p> -->
+    <p style="text-align: center">{{orders}}</p>
   </div>
 </template>
 
@@ -32,7 +32,12 @@ export default {
       cart: [],
       text: '',
       count: 0,
-      sort: ''
+      sort: '',
+      // recent order
+      invoice: '',
+      orders: [],
+      subTotal: '',
+      date: ''
     }
   },
   methods: {
@@ -43,6 +48,12 @@ export default {
     },
     setSort(data) {
       this.sort = data
+    },
+    recent(data) {
+      this.invoice = data.invoice
+      this.orders = data.orders
+      this.subTotal = data.subtotal
+      this.date = data.date
     }
   }
 }
