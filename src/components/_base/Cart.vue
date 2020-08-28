@@ -110,13 +110,6 @@ export default {
           this.subTotal = res.data.data.updateHistory.history_subtotal
 
           // --------------------
-          const setData = {
-            invoice: this.invoice,
-            orders: this.nameModal,
-            subtotal: this.subTotal,
-            date: new Date()
-          }
-          this.$emit('recentOrder', setData)
         })
         .catch((err) => {
           console.log(err)

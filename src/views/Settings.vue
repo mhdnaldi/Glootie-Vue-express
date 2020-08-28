@@ -110,6 +110,7 @@ export default {
         .then((res) => {
           this.$router.push(`?page=${this.page}&limit=${this.limit}`)
           this.products = res.data.data
+          console.log(this.products)
           this.$emit('allProduct', this.products)
         })
         .catch((err) => console.log(err))

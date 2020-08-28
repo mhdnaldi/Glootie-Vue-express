@@ -14,18 +14,15 @@
         <b-row details align="left">
           <div class="box day-income">
             <p class="details-p">Today's income</p>
-            <h5>Rp. 1000.000</h5>
-            <p>+2% Yesterday</p>
+            <h5>Rp. {{todayIncome}}</h5>
           </div>
           <div class="box orders">
             <p class="details-p">Orders</p>
-            <p>3270</p>
-            <p>+5% Last week</p>
+            <h5>{{weekOrders}}</h5>
           </div>
           <div class="box year-income">
             <p class="details-p">This years income</p>
             <h5>Rp. 1000.000.000</h5>
-            <p>+10% Last year</p>
           </div>
         </b-row>
         <b-row>
@@ -64,7 +61,7 @@
             <div>
               <h6>INVOICES</h6>
               <hr />
-              <h6>#6737212</h6>
+              <h6>#</h6>
             </div>
             <div>
               <h6>Cashier</h6>
@@ -74,7 +71,7 @@
             <div>
               <h6>DATE</h6>
               <hr />
-              <h6>20 Mei 2021</h6>
+              <h6></h6>
             </div>
             <div>
               <h6>ORDERS</h6>
@@ -84,7 +81,7 @@
             <div>
               <h6>Amount</h6>
               <hr />
-              <h6>Rp. 20000</h6>
+              <h6>Rp.</h6>
             </div>
           </b-col>
         </b-row>
@@ -99,23 +96,54 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      thisWeekOrders: []
+      thisWeekHistory: [],
+      thisWeekOrders: [],
+      weekOrders: '',
+      todayIncome: ''
     }
   },
   components: {
     Aside
+  },
+  created() {
+    this.thisWeekTotalOrders()
+    this.todaysIncome()
   },
   methods: {
     weekHistory() {
       axios
         .get('http://localhost:3000/history/week')
         .then((res) => {
-          this.thisWeekOrders = res.data.data
-          console.log(this.thisWeekOrders)
+          this.thisWeekHistory = res
+        })
+        .catch((err) => console.log(err))
+    },
+    weekOrder() {
+      axios
+        .get('http://localhost:3000/history/week')
+        .then((res) => {
+          this.thisWeekOrders = res.data
+        })
+        .catch((err) => console.log(err))
+    },
+    thisWeekTotalOrders() {
+      return axios
+        .get('http://localhost:3000/order/this-week-order')
+        .then((res) => {
+          this.weekOrders = res.data.data
+        })
+        .catch((err) => console.log(err))
+    },
+    todaysIncome() {
+      return axios
+        .get('http://localhost:3000/history/total-today')
+        .then((res) => {
+          this.todayIncome = res.data.data
         })
         .catch((err) => console.log(err))
     }
-  }
+  },
+  computed: {}
 }
 </script>
 
