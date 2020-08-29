@@ -13,16 +13,16 @@
       <b-col cols lg="11" style="background-color:#eee">
         <b-row details align="left">
           <div class="box day-income">
-            <p class="details-p">Today's income</p>
-            <h5>Rp. {{todayIncome}}</h5>
+            <p class="details-p">Today's Income</p>
+            <h5>Rp. {{todayIncome}}.-</h5>
           </div>
           <div class="box orders">
             <p class="details-p">Orders</p>
             <h5>{{weekOrders}}</h5>
           </div>
           <div class="box year-income">
-            <p class="details-p">This years income</p>
-            <h5>Rp. 1000.000.000</h5>
+            <p class="details-p">This Years Income</p>
+            <h5>Rp. {{yearIncome}}.-</h5>
           </div>
         </b-row>
         <b-row>
@@ -32,7 +32,7 @@
             </div>
             <div>
               <b-dropdown text="Months">
-                <b-dropdown-item href="#">An item</b-dropdown-item>
+                <b-dropdown-item href="#" @click="chart">An item</b-dropdown-item>
                 <b-dropdown-item href="#">Another item</b-dropdown-item>
               </b-dropdown>
             </div>
@@ -51,38 +51,34 @@
             <div>
               <b-dropdown text="Today">
                 <b-dropdown-item>Today</b-dropdown-item>
-                <b-dropdown-item @click="weekHistory">This Week</b-dropdown-item>
+                <b-dropdown-item @click="recentOrder">This Week</b-dropdown-item>
               </b-dropdown>
             </div>
           </b-col>
         </b-row>
         <b-row>
-          <b-col cols lg="11" class="recent">
-            <div>
-              <h6>INVOICES</h6>
-              <hr />
-              <h6>#</h6>
-            </div>
-            <div>
-              <h6>Cashier</h6>
-              <hr />
-              <h6>Cashier 1</h6>
-            </div>
-            <div>
-              <h6>DATE</h6>
-              <hr />
-              <h6></h6>
-            </div>
-            <div>
-              <h6>ORDERS</h6>
-              <hr />
-              <h6>Orange Juice</h6>
-            </div>
-            <div>
-              <h6>Amount</h6>
-              <hr />
-              <h6>Rp.</h6>
-            </div>
+          <b-col cols="11">
+            <!-- TABLE -->
+            <table id="recent">
+              <tr>
+                <th style="text-align: center">INVOICES</th>
+                <th style="text-align: center">CASHIER</th>
+                <th style="text-align: center">DATE</th>
+                <th style="text-align: center">ORDERS</th>
+                <th style="text-align: center">AMOUNT</th>
+              </tr>
+              <tr v-for="(value, index) in recentOrders" :key="index">
+                <td>#{{value.invoice}}</td>
+                <td>Cashier 1</td>
+                <td>{{value.created_at.slice(0,10)}}</td>
+                <td>
+                  <ul v-for="(value,index) in value.orders" :key="index">
+                    <li>{{value.menu_name}}</li>
+                  </ul>
+                </td>
+                <td>Rp. {{value.history_subtotal}}</td>
+              </tr>
+            </table>
           </b-col>
         </b-row>
       </b-col>
@@ -96,10 +92,11 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      thisWeekHistory: [],
-      thisWeekOrders: [],
+      recentOrders: [],
       weekOrders: '',
-      todayIncome: ''
+      todayIncome: '',
+      yearIncome: '',
+      chartKick: []
     }
   },
   components: {
@@ -108,24 +105,22 @@ export default {
   created() {
     this.thisWeekTotalOrders()
     this.todaysIncome()
+    this.yearlyIncome()
+    this.recentOrder()
+    this.chart()
   },
   methods: {
-    weekHistory() {
+    recentOrder() {
       axios
-        .get('http://localhost:3000/history/week')
+        .get('http://localhost:3000/history/recent-orders')
         .then((res) => {
-          this.thisWeekHistory = res
+          this.recentOrders = res.data.data
         })
-        .catch((err) => console.log(err))
-    },
-    weekOrder() {
-      axios
-        .get('http://localhost:3000/history/week')
-        .then((res) => {
-          this.thisWeekOrders = res.data
+        .catch((err) => {
+          console.log(err)
         })
-        .catch((err) => console.log(err))
     },
+    // get this week total orders
     thisWeekTotalOrders() {
       return axios
         .get('http://localhost:3000/order/this-week-order')
@@ -134,13 +129,34 @@ export default {
         })
         .catch((err) => console.log(err))
     },
+    // get todays income
     todaysIncome() {
-      return axios
+      axios
         .get('http://localhost:3000/history/total-today')
         .then((res) => {
           this.todayIncome = res.data.data
         })
         .catch((err) => console.log(err))
+    },
+    // get yearly income
+    yearlyIncome() {
+      axios
+        .get('http://localhost:3000/history/total-yearly')
+        .then((res) => {
+          this.yearIncome = res.data.data
+        })
+        .catch((err) => console.log(err))
+    },
+    // get chart data
+    chart() {
+      axios
+        .get('http://localhost:3000/history/chart')
+        .then((res) => {
+          this.chartKick = res.data.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   computed: {}
@@ -229,16 +245,6 @@ h5 {
   margin: 10px 40px 20px 10px;
 }
 
-.recent {
-  margin: 30px 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.recent div {
-  text-align: center;
-}
-
 @media (max-width: 991.98px) {
   .chart-lines {
     margin: 10px 30px;
@@ -252,26 +258,12 @@ h5 {
     margin: 20px auto;
   }
 
-  .recent {
-    grid-template-columns: 1fr;
-  }
-
-  .recent div {
-    /* border: 1px solid grey; */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) inset;
-    border-radius: 20px;
-    margin: 20px;
-  }
-
-  hr {
-    display: none;
-  }
-  .recent div h6 {
-    padding-top: 8px;
-  }
-
   .charts {
     margin: 10px;
+  }
+
+  #recent {
+    font-size: 12px;
   }
 }
 
@@ -284,5 +276,47 @@ h5 {
     text-align: center;
     margin: 10px 0;
   }
+
+  #recent {
+    margin-top: 20px;
+    width: 100%;
+    padding-left: -100px;
+  }
+}
+/* TABLE */
+#recent {
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 25px;
+  margin-bottom: 30px;
+  /* border-radius: 10px; */
+}
+
+#recent td,
+#recent th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#recent tr:nth-child(even) {
+  background-color: #f2f2f2;
+  transition: 0.2s;
+}
+
+#recent tr:hover {
+  background-color: #ddd;
+}
+
+#recent th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #fbb2b4;
+  color: black;
+}
+td ul {
+  list-style-type: none;
+  text-align: left;
 }
 </style>
