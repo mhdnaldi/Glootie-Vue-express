@@ -15,7 +15,13 @@
       <h5 style="color: #eee">{{ value.menu_name }}</h5>
       <div class="flex">
         <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-        <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
+        <b-button
+          class="btn"
+          variant="danger"
+          size="sm"
+          @click="addToCart(value)"
+          >ADD</b-button
+        >
       </div>
     </div>
     <b-row>
@@ -79,14 +85,14 @@ export default {
         .get(
           `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
         )
-        .then((res) => {
+        .then(res => {
           this.$router.push(
             `?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
           )
           this.pagination = res.data.pagination
           this.products = res.data.data
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     pageChange(event) {
       this.$router.push(`?page=${event}`)
@@ -98,11 +104,11 @@ export default {
     searchMenu() {
       axios
         .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
-        .then((res) => {
+        .then(res => {
           this.$router.push(`?name=${this.dataText}`)
           this.products = res.data
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
 
     addToCart(data) {
@@ -123,7 +129,7 @@ export default {
     },
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
-      return this.cart.some((value) => value.menu_id === data.menu_id)
+      return this.cart.some(value => value.menu_id === data.menu_id)
       // console.log(this.sortData)
     }
   }
@@ -167,6 +173,15 @@ export default {
   background-color: #cecece;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.menu-items .cards {
+  transition: 0.3s;
+}
+
+.menu-items .cards:hover {
+  transform: scale(0.9);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
 div {

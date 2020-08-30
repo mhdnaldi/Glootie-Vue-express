@@ -5,20 +5,21 @@
         <img src="../../assets/icons/menu.png" alt />
       </div>
       <div>
-        <h2 class="title">Glootie</h2>
+        <h2 class="title" style="color: #111; margin-top:2px">Glootie</h2>
       </div>
       <div class="two">
         <form v-on:submit.prevent="getInfo">
           <input type="text" v-model="form" placeholder=" Search..." />
           <b-button
             type="submit"
-            style="border-radius: 5px; margin-top: -5px"
+            style="border-radius: 5px; margin-top: -3px; margin-left: 5px; box-shadow: 1px 1px 2px rgba(0,0,0,0.4)"
             size="sm"
+            variant="danger"
             @click="getInfo"
           >
             <img
               class="search-img"
-              style="width: 15px"
+              style="width: 14px"
               src="../../assets/icons/magnifying-glass.png"
               alt
             />
@@ -35,7 +36,7 @@
     <b-col cols lg="4" sm="12" xs="12" justified class="nav-cart">
       <h2 class="text-center" style="margin-top: 10px">
         Cart
-        <span>{{count}}</span>
+        <span>{{ count }}</span>
       </h2>
     </b-col>
   </b-row>
@@ -64,7 +65,7 @@ export default {
 <style>
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 

@@ -14,15 +14,15 @@
         <b-row details align="left">
           <div class="box day-income">
             <p class="details-p">Today's Income</p>
-            <h5>Rp. {{todayIncome}}.-</h5>
+            <h5>Rp. {{ todayIncome }}.-</h5>
           </div>
           <div class="box orders">
             <p class="details-p">Orders</p>
-            <h5>{{weekOrders}}</h5>
+            <h5>{{ weekOrders }}</h5>
           </div>
           <div class="box year-income">
             <p class="details-p">This Years Income</p>
-            <h5>Rp. {{yearIncome}}.-</h5>
+            <h5>Rp. {{ yearIncome }}.-</h5>
           </div>
         </b-row>
         <b-row>
@@ -32,7 +32,9 @@
             </div>
             <div>
               <b-dropdown text="Months">
-                <b-dropdown-item href="#" @click="chart">An item</b-dropdown-item>
+                <b-dropdown-item href="#" @click="chart"
+                  >An item</b-dropdown-item
+                >
                 <b-dropdown-item href="#">Another item</b-dropdown-item>
               </b-dropdown>
             </div>
@@ -52,7 +54,9 @@
             <div>
               <b-dropdown text="Today">
                 <b-dropdown-item>Today</b-dropdown-item>
-                <b-dropdown-item @click="recentOrder">This Week</b-dropdown-item>
+                <b-dropdown-item @click="recentOrder"
+                  >This Week</b-dropdown-item
+                >
               </b-dropdown>
             </div>
           </b-col>
@@ -69,15 +73,15 @@
                 <th style="text-align: center">AMOUNT</th>
               </tr>
               <tr v-for="(value, index) in recentOrders" :key="index">
-                <td>#{{value.invoice}}</td>
+                <td>#{{ value.invoice }}</td>
                 <td>Cashier 1</td>
-                <td>{{value.created_at.slice(0,10)}}</td>
+                <td>{{ value.created_at.slice(0, 10) }}</td>
                 <td>
-                  <ul v-for="(value,index) in value.orders" :key="index">
-                    <li>{{value.menu_name}}</li>
+                  <ul v-for="(value, index) in value.orders" :key="index">
+                    <li>{{ value.menu_name }}</li>
                   </ul>
                 </td>
-                <td>Rp. {{value.history_subtotal}}</td>
+                <td>Rp. {{ value.history_subtotal }}</td>
               </tr>
             </table>
           </b-col>
@@ -115,10 +119,10 @@ export default {
     recentOrder() {
       axios
         .get('http://localhost:3000/history/recent-orders')
-        .then((res) => {
+        .then(res => {
           this.recentOrders = res.data.data
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
     },
@@ -126,41 +130,41 @@ export default {
     thisWeekTotalOrders() {
       return axios
         .get('http://localhost:3000/order/this-week-order')
-        .then((res) => {
+        .then(res => {
           this.weekOrders = res.data.data
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     // get todays income
     todaysIncome() {
       axios
         .get('http://localhost:3000/history/total-today')
-        .then((res) => {
+        .then(res => {
           this.todayIncome = res.data.data
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     // get yearly income
     yearlyIncome() {
       axios
         .get('http://localhost:3000/history/total-yearly')
-        .then((res) => {
+        .then(res => {
           this.yearIncome = res.data.data
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     // get chart data
     chart() {
       axios
         .get('http://localhost:3000/history/chart')
-        .then((res) => {
+        .then(res => {
           this.chartKick = res.data.data
 
-          this.chartKick.map((value) => {
+          this.chartKick.map(value => {
             return this.chartData.push([value.date.slice(0, 10), value.total])
           })
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
     }
@@ -206,6 +210,22 @@ h5 {
   border-radius: 10px;
 }
 
+/* animation */
+@keyframes anim {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  50% {
+    opacity: 0.5;
+    /* transform: translateY(13px); */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .day-income {
   background: linear-gradient(
     278.29deg,
@@ -214,6 +234,7 @@ h5 {
   );
   filter: drop-shadow(10px 15px 10px rgba(255, 143, 178, 0.25));
   border-radius: 10px;
+  animation: anim 1s;
 }
 
 .orders {
@@ -224,6 +245,7 @@ h5 {
   );
   filter: drop-shadow(10px 15px 10px rgba(41, 223, 255, 0.25));
   border-radius: 10px;
+  animation: anim 2s;
 }
 
 .year-income {
@@ -234,6 +256,7 @@ h5 {
   );
   filter: drop-shadow(10px 15px 10px rgba(241, 201, 236, 0.25));
   border-radius: 10px;
+  animation: anim 3s;
 }
 
 .revenue {

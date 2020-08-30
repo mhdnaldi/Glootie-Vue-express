@@ -10,13 +10,13 @@
         <img src="../../assets/img/bear.png" alt />
       </div>
       <div class="info">
-        <h5>{{value.menu_name}}</h5>
+        <h5>{{ value.menu_name }}</h5>
         <div class="desc" v-if="value.qty > 1" @click="desc(value)">-</div>
-        <div class="num">{{value.qty}}</div>
+        <div class="num">{{ value.qty }}</div>
         <div class="asc" @click="asc(value)">+</div>
       </div>
       <div class="price">
-        <h6>Rp. {{value.menu_price * value.qty}}</h6>
+        <h6>Rp. {{ value.menu_price * value.qty }}</h6>
       </div>
     </div>
     <div class="total" style="text-align: center" v-if="orders.length > 0">
@@ -26,12 +26,14 @@
       <div>
         <h6>Total Price:</h6>
       </div>
-      <div>Rp. {{totalPrice}}</div>
+      <div>Rp. {{ totalPrice }}</div>
     </div>
     <h6
       style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
       v-if="totalPrice > 0"
-    >The Price Does Not Include Additional Taxes</h6>
+    >
+      The Price Does Not Include Additional Taxes
+    </h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
@@ -41,21 +43,23 @@
             <h6>Cashier: Cashier 1</h6>
           </div>
           <div>
-            <h6>Receipt no: #{{invoice}}</h6>
+            <h6>Receipt no: #{{ invoice }}</h6>
           </div>
         </div>
         <div class="total-modal">
           <div>
-            <p v-for="(value, index) in nameModal" :key="index">{{value}}</p>
+            <p v-for="(value, index) in nameModal" :key="index">{{ value }}</p>
           </div>
           <div>
-            <p v-for="(value, index) in qtyModal" :key="index">{{value}} x</p>
+            <p v-for="(value, index) in qtyModal" :key="index">{{ value }} x</p>
           </div>
           <div>
-            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{value}}</p>
+            <p v-for="(value, index) in priceModal" :key="index">
+              :Rp. {{ value }}
+            </p>
 
-            <p>Tax 10%: {{taxes}}</p>
-            <p>Total: {{subTotal}}</p>
+            <p>Tax 10%: {{ taxes }}</p>
+            <p>Total: {{ subTotal }}</p>
           </div>
         </div>
       </b-modal>
@@ -104,14 +108,14 @@ export default {
       this.qtyModal = quantity
       axios
         .post('http://localhost:3000/order', this.orders)
-        .then((res) => {
+        .then(res => {
           this.taxes = res.data.data.tax
           this.invoice = res.data.data.updateHistory.invoice
           this.subTotal = res.data.data.updateHistory.history_subtotal
 
           // --------------------
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
         })
     },
@@ -143,9 +147,9 @@ export default {
 }
 
 .checkout button {
-  background-color: aqua;
+  background-color: #29dfff;
   color: #111;
-  border-color: aqua;
+  border-color: #29dfff;
 
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
@@ -164,9 +168,9 @@ export default {
 }
 
 .cancel button {
-  background-color: tomato;
+  background-color: #fbb2b4;
   color: #111;
-  border-color: tomato;
+  border-color: #fbb2b4;
 
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
