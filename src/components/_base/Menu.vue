@@ -104,9 +104,7 @@ export default {
         })
         .catch((err) => console.log(err))
     },
-    sortMenu() {
-      // ENDPOINT SORT
-    },
+
     addToCart(data) {
       const setCart = {
         menu_name: data.menu_name,

@@ -40,7 +40,8 @@
         </b-row>
         <b-row class="charts">
           <b-col cols="11">
-            <line-chart class="chart-lines" :data="{'2017-05-13': 2, '2017-05-14': 5}"></line-chart>
+            <column-chart :data="chartData" class="chart-lines"></column-chart>
+            <!-- <line-chart class="chart-lines" :data="{'2017-05-13': 2, '2017-05-14': 5}"></line-chart> -->
           </b-col>
         </b-row>
         <b-row>
@@ -96,7 +97,8 @@ export default {
       weekOrders: '',
       todayIncome: '',
       yearIncome: '',
-      chartKick: []
+      chartKick: [],
+      chartData: []
     }
   },
   components: {
@@ -153,6 +155,10 @@ export default {
         .get('http://localhost:3000/history/chart')
         .then((res) => {
           this.chartKick = res.data.data
+
+          this.chartKick.map((value) => {
+            return this.chartData.push([value.date.slice(0, 10), value.total])
+          })
         })
         .catch((err) => {
           console.log(err)
@@ -264,6 +270,7 @@ h5 {
 
   #recent {
     font-size: 12px;
+    text-align: left;
   }
 }
 
@@ -316,7 +323,7 @@ h5 {
   color: black;
 }
 td ul {
-  list-style-type: none;
+  /* list-style-type: none; */
   text-align: left;
 }
 </style>

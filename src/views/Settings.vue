@@ -18,13 +18,29 @@
           <div>
             <b-alert v-bind:show="alert">{{ isMsg }}</b-alert>
             <form v-on:submit.prevent="addItem">
-              <input type="text" v-model="form.menu_name" placeholder="Menu name" required />
+              <input
+                style="color: #5D5057"
+                type="text"
+                v-model="form.menu_name"
+                placeholder="Menu name"
+                required
+              />
 
-              <input type="text" v-model="form.menu_price" placeholder="Menu price" required />
+              <input
+                style="color: #5D5057"
+                type="text"
+                v-model="form.menu_price"
+                placeholder="Menu price"
+                required
+              />
 
-              <input type="text" v-model="form.category_id" placeholder="Category" required />
+              <label class="mt-4 ml-2" style="color:#A8A1B3">Category</label>
+              <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
+              <label class="ml-2 mt-2" style="color:#A8A1B3">Status</label>
+              <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
 
-              <input type="text" v-model="form.menu_status" placeholder="Menu status" required />
+              <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
+              <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
                 <b-button variant="primary" type="submit" v-show="!isUpdate">Save</b-button>
                 <b-button
@@ -82,6 +98,18 @@ export default {
   name: 'Settings',
   data() {
     return {
+      // form dropdowns
+      category: [
+        // { value: null, text: 'Please select an option' },
+        { value: '1', text: 'Food' },
+        { value: '2', text: 'Drink' },
+        { value: '3', text: 'Dessert' }
+      ],
+      status: [
+        // { value: null, text: 'Please select an option' },
+        { value: '1', text: 'Available' },
+        { value: '0', text: 'Not Available' }
+      ],
       // get
       page: 1,
       limit: 100,
