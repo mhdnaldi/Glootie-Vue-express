@@ -15,14 +15,10 @@
         <img src="../../assets/icons/add.png" alt />
       </router-link>
     </div>
-    <div class="sort">
-      <b-dropdown id="dropdown-1" right text="Sort" size="sm" class="m-md-2">
-        <b-dropdown-item @click="sortByPriceAsc"
-          >Price Low to High</b-dropdown-item
-        >
-        <b-dropdown-item @click="sortByPriceDesc"
-          >Price High to Low</b-dropdown-item
-        >
+    <div class="sort" v-if="path === '/'">
+      <b-dropdown id="dropdown-1" right text="SORT" size="sm" class="m-md-2">
+        <b-dropdown-item @click="sortByPriceAsc">Price Low to High</b-dropdown-item>
+        <b-dropdown-item @click="sortByPriceDesc">Price High to Low</b-dropdown-item>
         <b-dropdown-item @click="sortByNameAsc">Name A-Z</b-dropdown-item>
         <b-dropdown-item @click="sortByNameDesc">Name Z-A</b-dropdown-item>
       </b-dropdown>
@@ -37,8 +33,12 @@ export default {
       sortPriceAsc: 'price asc',
       sortPriceDesc: 'price desc',
       sortNameAsc: 'name asc',
-      sortNameDesc: 'name desc'
+      sortNameDesc: 'name desc',
+      path: ''
     }
+  },
+  created() {
+    this.path = window.location.pathname
   },
   methods: {
     sortByPriceAsc() {

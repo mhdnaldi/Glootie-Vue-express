@@ -1,41 +1,35 @@
 <template>
-  <b-col cols lg="7" md="12" sm="12" xs="12" class="menu-items">
-    <div
-      v-for="(value, index) in products"
-      :key="index"
-      class="cards"
-      style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
-    >
-      <div class="img-check">
-        <img src="../../assets/img/bear.png" alt />
-        <div class="check" v-if="check(value)">
-          <img src="../../assets/icons/check.png" alt />
+  <b-col cols lg="7" md="12" sm="12" xs="12" style="background-color: #cecece">
+    <div class="menu-items">
+      <div
+        v-for="(value, index) in products"
+        :key="index"
+        class="cards"
+        style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
+      >
+        <div class="img-check">
+          <img src="../../assets/img/bear.png" alt />
+          <div class="check" v-if="check(value)">
+            <img src="../../assets/icons/check.png" alt />
+          </div>
+        </div>
+        <h5 style="color: #eee">{{ value.menu_name }}</h5>
+        <div class="flex">
+          <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
+          <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
         </div>
       </div>
-      <h5 style="color: #eee">{{ value.menu_name }}</h5>
-      <div class="flex">
-        <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-        <b-button
-          class="btn"
-          variant="danger"
-          size="sm"
-          @click="addToCart(value)"
-          >ADD</b-button
-        >
-      </div>
     </div>
-    <b-row>
-      <div class="pgn">
-        <b-pagination
-          v-model="page"
-          :total-rows="rows"
-          :per-page="limit"
-          variant="dark"
-          align="center"
-          @change="pageChange"
-        ></b-pagination>
-      </div>
-    </b-row>
+    <div class="pgn">
+      <b-pagination
+        v-model="page"
+        :total-rows="rows"
+        :per-page="limit"
+        variant="dark"
+        align="center"
+        @change="pageChange"
+      ></b-pagination>
+    </div>
   </b-col>
 </template>
 
@@ -45,7 +39,7 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 8,
+      limit: 9,
       products: [],
       cart: [],
       count: 1,
@@ -85,14 +79,14 @@ export default {
         .get(
           `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
         )
-        .then(res => {
+        .then((res) => {
           this.$router.push(
             `?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
           )
           this.pagination = res.data.pagination
           this.products = res.data.data
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
     pageChange(event) {
       this.$router.push(`?page=${event}`)
@@ -104,11 +98,11 @@ export default {
     searchMenu() {
       axios
         .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
-        .then(res => {
+        .then((res) => {
           this.$router.push(`?name=${this.dataText}`)
           this.products = res.data
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
 
     addToCart(data) {
@@ -129,7 +123,7 @@ export default {
     },
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
-      return this.cart.some(value => value.menu_id === data.menu_id)
+      return this.cart.some((value) => value.menu_id === data.menu_id)
       // console.log(this.sortData)
     }
   }
@@ -137,8 +131,9 @@ export default {
 </script>
 
 <style scoped>
-.pgn {
-  margin: auto;
+div.pgn {
+  margin: -15px auto auto 0;
+  height: 50px;
 }
 .cards {
   border-radius: 20px;

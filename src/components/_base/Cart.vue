@@ -31,9 +31,7 @@
     <h6
       style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
       v-if="totalPrice > 0"
-    >
-      The Price Does Not Include Additional Taxes
-    </h6>
+    >The Price Does Not Include Additional Taxes</h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
@@ -54,9 +52,7 @@
             <p v-for="(value, index) in qtyModal" :key="index">{{ value }} x</p>
           </div>
           <div>
-            <p v-for="(value, index) in priceModal" :key="index">
-              :Rp. {{ value }}
-            </p>
+            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{ value }}</p>
 
             <p>Tax 10%: {{ taxes }}</p>
             <p>Total: {{ subTotal }}</p>
@@ -108,14 +104,14 @@ export default {
       this.qtyModal = quantity
       axios
         .post('http://localhost:3000/order', this.orders)
-        .then(res => {
+        .then((res) => {
           this.taxes = res.data.data.tax
           this.invoice = res.data.data.updateHistory.invoice
           this.subTotal = res.data.data.updateHistory.history_subtotal
 
           // --------------------
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     },

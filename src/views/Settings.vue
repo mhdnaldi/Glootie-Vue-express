@@ -34,21 +34,32 @@
                 required
               />
 
-              <label class="mt-4 ml-2" style="color:#A8A1B3">Category</label>
-              <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
-              <label class="ml-2 mt-2" style="color:#A8A1B3">Status</label>
-              <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
+              <label class="mt-4 ml-2" style="color:#757575">Category</label>
+              <b-form-select
+                v-model="form.category_id"
+                :options="category"
+                style="height: 50px"
+              ></b-form-select>
+              <label class="ml-2 mt-2" style="color:#757575">Status</label>
+              <b-form-select
+                v-model="form.menu_status"
+                :options="status"
+                style="height: 50px"
+              ></b-form-select>
 
               <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
               <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
-                <b-button variant="primary" type="submit" v-show="!isUpdate">Save</b-button>
+                <b-button variant="primary" type="submit" v-show="!isUpdate"
+                  >Save</b-button
+                >
                 <b-button
                   variant="success"
                   type="button"
                   v-show="isUpdate"
                   @click="patchMenu"
-                >Update</b-button>
+                  >Update</b-button
+                >
               </div>
             </form>
           </div>
@@ -135,18 +146,18 @@ export default {
     getMenu() {
       axios
         .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
-        .then((res) => {
+        .then(res => {
           this.$router.push(`?page=${this.page}&limit=${this.limit}`)
           this.products = res.data.data
           console.log(this.products)
           this.$emit('allProduct', this.products)
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     addItem() {
       axios
         .post('http://localhost:3000/menu', this.form)
-        .then((res) => {
+        .then(res => {
           this.isMsg = res.data.msg
           this.alert = true
           this.getMenu()
@@ -154,7 +165,7 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     updateItem(data) {
       this.form = {
@@ -171,7 +182,7 @@ export default {
       this.isUpdate = false
       axios
         .patch(`http://localhost:3000/menu/${this.menu_id}`, this.form)
-        .then((res) => {
+        .then(res => {
           this.isMsg = res.data.msg
           this.alert = true
           this.getMenu()
@@ -179,11 +190,11 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch((err) => console.log(err))
+        .catch(err => console.log(err))
     },
     deleteItem(data) {
       this.menu_id = data.menu_id
-      axios.delete(`http://localhost:3000/menu/${this.menu_id}`).then((res) => {
+      axios.delete(`http://localhost:3000/menu/${this.menu_id}`).then(res => {
         this.$router.push(`?=${this.menu_id}`)
         this.isMsg = res.data.msg
         this.alert = true
