@@ -108,8 +108,6 @@ export default {
           this.taxes = res.data.data.tax
           this.invoice = res.data.data.updateHistory.invoice
           this.subTotal = res.data.data.updateHistory.history_subtotal
-
-          // --------------------
         })
         .catch((err) => {
           console.log(err)

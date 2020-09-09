@@ -7,6 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 
+import store from './store/index'
+
 Vue.use(Chartkick.use(Chart))
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -15,5 +17,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store, // vuex
   render: h => h(App)
 }).$mount('#app')

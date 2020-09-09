@@ -32,9 +32,7 @@
             </div>
             <div>
               <b-dropdown text="Months">
-                <b-dropdown-item href="#" @click="chart"
-                  >An item</b-dropdown-item
-                >
+                <b-dropdown-item href="#" @click="chart">An item</b-dropdown-item>
                 <b-dropdown-item href="#">Another item</b-dropdown-item>
               </b-dropdown>
             </div>
@@ -54,9 +52,7 @@
             <div>
               <b-dropdown text="Today">
                 <b-dropdown-item>Today</b-dropdown-item>
-                <b-dropdown-item @click="recentOrder"
-                  >This Week</b-dropdown-item
-                >
+                <b-dropdown-item @click="recentOrder">This Week</b-dropdown-item>
               </b-dropdown>
             </div>
           </b-col>
@@ -119,10 +115,11 @@ export default {
     recentOrder() {
       axios
         .get('http://localhost:3000/history/recent-orders')
-        .then(res => {
+        .then((res) => {
+          console.log(res)
           this.recentOrders = res.data.data
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     },
@@ -130,41 +127,41 @@ export default {
     thisWeekTotalOrders() {
       return axios
         .get('http://localhost:3000/order/this-week-order')
-        .then(res => {
+        .then((res) => {
           this.weekOrders = res.data.data
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
     // get todays income
     todaysIncome() {
       axios
         .get('http://localhost:3000/history/total-today')
-        .then(res => {
+        .then((res) => {
           this.todayIncome = res.data.data
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
     // get yearly income
     yearlyIncome() {
       axios
         .get('http://localhost:3000/history/total-yearly')
-        .then(res => {
+        .then((res) => {
           this.yearIncome = res.data.data
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
     // get chart data
     chart() {
       axios
         .get('http://localhost:3000/history/chart')
-        .then(res => {
+        .then((res) => {
           this.chartKick = res.data.data
 
-          this.chartKick.map(value => {
+          this.chartKick.map((value) => {
             return this.chartData.push([value.date.slice(0, 10), value.total])
           })
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     }

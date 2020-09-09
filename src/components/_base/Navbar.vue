@@ -2,7 +2,9 @@
   <b-row>
     <b-col cols lg="8" sm="12" xs="12" class="navbar">
       <div class="one">
-        <img src="../../assets/icons/menu.png" alt />
+        <a @click="handleLogout">
+          <img src="../../assets/icons/menu.png" alt />
+        </a>
       </div>
       <div>
         <h2 class="title" style="color: #111; margin-top:2px">Glootie</h2>
@@ -43,6 +45,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -57,7 +60,8 @@ export default {
       // 1 mengirim getText ke home.vue
       console.log(this.getText)
       this.$emit('dataText', this.getText)
-    }
+    },
+    ...mapActions({ handleLogout: 'logout' })
   }
 }
 </script>
@@ -71,6 +75,7 @@ export default {
 
 .navbar .one {
   margin-left: 25px;
+  cursor: pointer;
 }
 
 .nav-cart {
