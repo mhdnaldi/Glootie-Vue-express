@@ -35,31 +35,21 @@
               />
 
               <label class="mt-4 ml-2" style="color:#757575">Category</label>
-              <b-form-select
-                v-model="form.category_id"
-                :options="category"
-                style="height: 50px"
-              ></b-form-select>
+              <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
               <label class="ml-2 mt-2" style="color:#757575">Status</label>
-              <b-form-select
-                v-model="form.menu_status"
-                :options="status"
-                style="height: 50px"
-              ></b-form-select>
+              <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
 
+              <input style="color: #5D5057" type="file" @change="handleFile" />
               <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
               <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
-                <b-button variant="primary" type="submit" v-show="!isUpdate"
-                  >Save</b-button
-                >
+                <b-button variant="primary" type="submit" v-show="!isUpdate">Save</b-button>
                 <b-button
                   variant="success"
                   type="button"
                   v-show="isUpdate"
                   @click="patchMenu"
-                  >Update</b-button
-                >
+                >Update</b-button>
               </div>
             </form>
           </div>
@@ -75,6 +65,7 @@
               <th>Price</th>
               <th style="text-align: center;">Category</th>
               <th style="text-align: center;">Status</th>
+              <th style="text-align: center;">Image</th>
               <th></th>
             </tr>
             <tr v-for="(value, index) in products" :key="index">
@@ -82,6 +73,7 @@
               <td>Rp. {{ value.menu_price }}</td>
               <td style="text-align: center;">{{ value.category_id }}</td>
               <td style="text-align: center;">{{ value.menu_status }}</td>
+              <td style="text-align: center;">{{ value.menu_image }}</td>
               <td style="text-align: center;">
                 <b-button
                   variant="success"
@@ -105,6 +97,8 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Settings',
   data() {
@@ -127,10 +121,11 @@ export default {
       products: [],
       // post
       form: {
-        category_id: '',
         menu_name: '',
+        category_id: '',
         menu_price: '',
-        menu_status: ''
+        menu_status: '',
+        menu_image: {}
       },
       isMsg: '',
       alert: false,
@@ -143,66 +138,80 @@ export default {
     this.getMenu()
   },
   methods: {
+    ...mapActions(['addMenu', 'editMenu', 'deleteMenu', 'getAllMenu']),
+    handleFile(event) {
+      this.form.menu_image = event.target.files[0]
+      console.log(event.target.files[0])
+    },
     getMenu() {
       axios
         .get(`http://localhost:3000/menu?page=${this.page}&limit=${this.limit}`)
-        .then(res => {
+        .then((res) => {
           this.$router.push(`?page=${this.page}&limit=${this.limit}`)
           this.products = res.data.data
-          console.log(this.products)
           this.$emit('allProduct', this.products)
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
     addItem() {
-      axios
-        .post('http://localhost:3000/menu', this.form)
-        .then(res => {
-          this.isMsg = res.data.msg
-          this.alert = true
-          this.getMenu()
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
+      const data = new FormData()
+      data.append('menu_name', this.form.menu_name)
+      data.append('menu_price', this.form.menu_price)
+      data.append('category_id', this.form.category_id)
+      data.append('menu_status', this.form.menu_status)
+      data.append('menu_image', this.form.menu_image)
+      this.addMenu(data)
+      console
+        .log(this.form)
+        .then((res) => {
+          console.log(res)
         })
-        .catch(err => console.log(err))
+        .catch((err) => {
+          console.log(err)
+        })
     },
-    updateItem(data) {
+    updateItem(value) {
       this.form = {
-        menu_name: data.menu_name,
-        category_id: data.category_id,
-        menu_price: data.menu_price,
-        menu_status: data.menu_status
+        menu_name: value.menu_name,
+        category_id: value.category_id,
+        menu_price: value.menu_price,
+        menu_status: value.menu_status,
+        menu_image: value.menu_image
       }
+      this.menu_id = value.menu_id
       this.isUpdate = true
-      this.menu_id = data.menu_id
       this.$router.push(`?=${this.menu_id}`)
     },
     patchMenu() {
       this.isUpdate = false
-      axios
-        .patch(`http://localhost:3000/menu/${this.menu_id}`, this.form)
-        .then(res => {
-          this.isMsg = res.data.msg
-          this.alert = true
-          this.getMenu()
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
+      const data = new FormData()
+      data.append('menu_name', this.form.menu_name)
+      data.append('menu_price', this.form.menu_price)
+      data.append('category_id', this.form.category_id)
+      data.append('menu_status', this.form.menu_status)
+      data.append('menu_image', this.form.menu_image)
+
+      const setData = {
+        menu_id: this.menu_id,
+        form: data
+      }
+      this.editMenu(setData)
+        .then((res) => {
+          console.log(res)
         })
-        .catch(err => console.log(err))
+        .catch((res) => {
+          alert(res.data.msg)
+        })
     },
     deleteItem(data) {
       this.menu_id = data.menu_id
-      axios.delete(`http://localhost:3000/menu/${this.menu_id}`).then(res => {
-        this.$router.push(`?=${this.menu_id}`)
-        this.isMsg = res.data.msg
-        this.alert = true
-        this.getMenu()
-        setTimeout(() => {
-          this.alert = false
-        }, 7000)
-      })
+      this.deleteMenu(this.menu_id)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }

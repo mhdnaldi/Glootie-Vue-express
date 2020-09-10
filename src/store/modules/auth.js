@@ -58,7 +58,6 @@ export default {
           return response
         },
         function(error) {
-          console.log(error.response)
           if (error.response.status === 403) {
             if (
               error.response.data.msg === 'invalid token' ||

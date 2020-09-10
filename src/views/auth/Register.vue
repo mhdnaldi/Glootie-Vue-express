@@ -57,7 +57,7 @@ export default {
           this.$router.push('/login')
         })
         .catch((err) => {
-          console.log(err)
+          alert(err.data.msg)
         })
     },
     onReset() {
