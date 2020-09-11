@@ -1,5 +1,15 @@
 import axios from 'axios'
 export default {
+  state: {
+    products: [],
+    page: 1,
+    limit: 100
+  },
+  mutations: {
+    setProduct(state, payload) {
+      state.products = payload.data
+    }
+  },
   actions: {
     getAllMenu(context, payload) {
       return new Promise((resolve, reject) => {
@@ -54,15 +64,9 @@ export default {
       })
     }
   },
-  mutations: {
-    setProduct(state, payload) {
-      state.products = payload.data
+  getters: {
+    getProduct(state) {
+      return state.products
     }
-  },
-  state: {
-    products: [],
-    page: 1,
-    limit: 100
-  },
-  getters: {}
+  }
 }
