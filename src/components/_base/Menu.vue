@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 export default {
   data() {
@@ -50,11 +51,14 @@ export default {
     rows() {
       return this.pagination.totalData
     }
+    // ...mapGetters({products: 'getItems'}),
+    // ...mapGetters({products: 'searchingItem'})
   },
   created() {
     this.getMenu()
+    // this.searchItem()
+    // this.getItem()
   },
-  // mengubah props dataText menjadi sebuah string
   props: {
     dataText: {
       type: String
@@ -73,6 +77,7 @@ export default {
     }
   },
   methods: {
+    // ...mapActions(['searchItem', 'getItem'])
     getMenu() {
       const str = this.sortItem.split(' ')
       axios // 1. MENGAMBIL SEMUA DATA

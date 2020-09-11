@@ -58,10 +58,11 @@ export default {
     getInfo() {
       this.getText = this.form
       // 1 mengirim getText ke home.vue
-      console.log(this.getText)
-      this.$emit('dataText', this.getText)
+      this.searchItem(this.getText)
+      // this.$emit('dataText', this.getText)
     },
-    ...mapActions({ handleLogout: 'logout' })
+    ...mapActions({ handleLogout: 'logout' }),
+    ...mapActions(['searchItem'])
   }
 }
 </script>

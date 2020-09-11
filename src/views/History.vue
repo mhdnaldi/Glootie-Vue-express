@@ -32,7 +32,7 @@
             </div>
             <div>
               <b-dropdown text="Months">
-                <b-dropdown-item href="#" @click="chart">An item</b-dropdown-item>
+                <b-dropdown-item href="#">An item</b-dropdown-item>
                 <b-dropdown-item href="#">Another item</b-dropdown-item>
               </b-dropdown>
             </div>
@@ -52,7 +52,7 @@
             <div>
               <b-dropdown text="Today">
                 <b-dropdown-item>Today</b-dropdown-item>
-                <b-dropdown-item @click="recentOrder">This Week</b-dropdown-item>
+                <b-dropdown-item>This Week</b-dropdown-item>
               </b-dropdown>
             </div>
           </b-col>
@@ -89,84 +89,36 @@
 
 <script>
 import Aside from '../components/_base/Aside'
-import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  data() {
-    return {
-      recentOrders: [],
-      weekOrders: '',
-      todayIncome: '',
-      yearIncome: '',
-      chartKick: [],
-      chartData: []
-    }
-  },
   components: {
     Aside
   },
   created() {
-    this.thisWeekTotalOrders()
-    this.todaysIncome()
-    this.yearlyIncome()
-    this.recentOrder()
+    this.todaysIncomeHistory()
+    this.recentOrdersHistory()
     this.chart()
+    this.weeksOrdersHistory()
+    this.yearsIncome()
+  },
+  computed: {
+    ...mapGetters({
+      recentOrders: 'recentProduct',
+      todayIncome: 'todaysIncome',
+      weekOrders: 'weeksOrder',
+      yearIncome: 'yearsIncome',
+      chartData: 'chartsData'
+    })
   },
   methods: {
-    recentOrder() {
-      axios
-        .get('http://localhost:3000/history/recent-orders')
-        .then((res) => {
-          console.log(res)
-          this.recentOrders = res.data.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    // get this week total orders
-    thisWeekTotalOrders() {
-      return axios
-        .get('http://localhost:3000/order/this-week-order')
-        .then((res) => {
-          this.weekOrders = res.data.data
-        })
-        .catch((err) => console.log(err))
-    },
-    // get todays income
-    todaysIncome() {
-      axios
-        .get('http://localhost:3000/history/total-today')
-        .then((res) => {
-          this.todayIncome = res.data.data
-        })
-        .catch((err) => console.log(err))
-    },
-    // get yearly income
-    yearlyIncome() {
-      axios
-        .get('http://localhost:3000/history/total-yearly')
-        .then((res) => {
-          this.yearIncome = res.data.data
-        })
-        .catch((err) => console.log(err))
-    },
-    // get chart data
-    chart() {
-      axios
-        .get('http://localhost:3000/history/chart')
-        .then((res) => {
-          this.chartKick = res.data.data
-
-          this.chartKick.map((value) => {
-            return this.chartData.push([value.date.slice(0, 10), value.total])
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  },
-  computed: {}
+    ...mapActions([
+      'recentOrdersHistory',
+      'todaysIncomeHistory',
+      'weeksOrdersHistory',
+      'yearsIncome',
+      'chart'
+    ])
+  }
 }
 </script>
 
