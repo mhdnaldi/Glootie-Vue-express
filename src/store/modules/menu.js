@@ -12,7 +12,6 @@ export default {
   mutations: {
     setItem(state, payload) {
       state.products = payload
-      console.log(payload)
     },
     setSort(state, payload) {
       const sorting = payload.split(' ')
@@ -26,19 +25,17 @@ export default {
   },
   actions: {
     searchItem(context, payload) {
-      console.log(payload)
       return new Promise((resolve, reject) => {
-        axios.get(
-          `http://localhost:3000/menu/search?name=${context.state.search}`
-        )
+        axios
+          .get(`http://localhost:3000/menu/search?name=${context.state.search}`)
+          .then(res => {
+            console.log(res)
+            context.commit('setItem', res.data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
       })
-        .then(res => {
-          console.log(res)
-          context.commit('setItem', res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     getItem(context, payload) {
       return new Promise((resolve, reject) => {

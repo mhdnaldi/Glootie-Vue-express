@@ -35,10 +35,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-// import axios from 'axios'
 export default {
   data() {
     return {
+      limit: 9,
       cart: [],
       count: 1,
       pagination: {}

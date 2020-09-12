@@ -58,11 +58,11 @@ export default {
     ...mapMutations(['setSearchItem']),
     getInfo() {
       this.getText = this.form
-      this.searchItem(this.getText)
-      this.searchItem()
+      this.setSearchItem(this.getText)
+      this.getItem()
     },
     ...mapActions({ handleLogout: 'logout' }),
-    ...mapActions(['searchItem'])
+    ...mapActions(['getItem'])
   }
 }
 </script>
