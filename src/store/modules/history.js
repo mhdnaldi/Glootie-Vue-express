@@ -46,7 +46,7 @@ export default {
             context.commit('setTodaysIncome', res.data.data)
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     },
@@ -58,7 +58,7 @@ export default {
             context.commit('setOrdersPerWeek', res.data.data)
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     },
@@ -70,7 +70,7 @@ export default {
             context.commit('setYearsIncome', res.data.data)
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     },
@@ -84,7 +84,6 @@ export default {
             chartKick.map(value => {
               charts.push([value.date.slice(0, 10), value.total])
             })
-            console.log(charts)
             context.commit('setChart', charts)
           })
           .catch(err => {

@@ -34,14 +34,11 @@
 </template>
 
 <script>
-// import { mapActions, mapGetters } from 'vuex'
-import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
+// import axios from 'axios'
 export default {
   data() {
     return {
-      page: 1,
-      limit: 9,
-      products: [],
       cart: [],
       count: 1,
       pagination: {}
@@ -50,14 +47,12 @@ export default {
   computed: {
     rows() {
       return this.pagination.totalData
-    }
-    // ...mapGetters({products: 'getItems'}),
-    // ...mapGetters({products: 'searchingItem'})
+    },
+    ...mapGetters({ products: 'getItems' })
   },
   created() {
-    this.getMenu()
-    // this.searchItem()
-    // this.getItem()
+    this.searchItem()
+    this.getItem()
   },
   props: {
     dataText: {
@@ -67,32 +62,8 @@ export default {
       type: String
     }
   },
-  watch: {
-    dataText() {
-      // search method
-      this.searchMenu()
-    },
-    sortItem() {
-      this.getMenu()
-    }
-  },
   methods: {
-    // ...mapActions(['searchItem', 'getItem'])
-    getMenu() {
-      const str = this.sortItem.split(' ')
-      axios // 1. MENGAMBIL SEMUA DATA
-        .get(
-          `http://localhost:3000/menu?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
-        )
-        .then((res) => {
-          this.$router.push(
-            `?page=${this.page}&limit=${this.limit}&sort=${str[0]}&asc_desc=${str[1]}`
-          )
-          this.pagination = res.data.pagination
-          this.products = res.data.data
-        })
-        .catch((err) => console.log(err))
-    },
+    ...mapActions(['searchItem', 'getItem']),
     pageChange(event) {
       this.$router.push(`?page=${event}`)
       // console.log(event)
@@ -100,15 +71,15 @@ export default {
       this.getMenu()
     },
     // end point search
-    searchMenu() {
-      axios
-        .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
-        .then((res) => {
-          this.$router.push(`?name=${this.dataText}`)
-          this.products = res.data
-        })
-        .catch((err) => console.log(err))
-    },
+    // searchMenu() {
+    //   axios
+    //     .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
+    //     .then((res) => {
+    //       this.$router.push(`?name=${this.dataText}`)
+    //       this.products = res.data
+    //     })
+    //     .catch((err) => console.log(err))
+    // },
 
     addToCart(data) {
       const setCart = {

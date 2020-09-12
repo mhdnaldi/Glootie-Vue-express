@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -43,21 +43,22 @@ export default {
   },
   methods: {
     ...mapActions(['getItem']),
+    ...mapMutations(['setSort']),
     sortByPriceAsc() {
-      this.$emit('sortItem', this.sortPriceAsc)
-      this.getItem(this.sortPriceAsc)
+      this.setSort(this.sortPriceAsc)
+      this.getItem()
     },
     sortByPriceDesc() {
-      this.$emit('sortItem', this.sortPriceDesc)
-      this.getItem(this.sortPriceDesc)
+      this.setSort(this.sortPriceDesc)
+      this.getItem()
     },
     sortByNameAsc() {
-      this.$emit('sortItem', this.sortNameAsc)
-      this.getItem(this.sortNameAsc)
+      this.setSort(this.sortNameAsc)
+      this.getItem()
     },
     sortByNameDesc() {
-      this.$emit('sortItem', this.sortNameDesc)
-      this.getItem(this.sortNameDesc)
+      this.setSort(this.sortNameDesc)
+      this.getItem()
     }
   }
 }

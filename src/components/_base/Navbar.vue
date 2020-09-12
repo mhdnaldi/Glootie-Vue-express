@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -55,11 +55,11 @@ export default {
   },
   props: ['count'],
   methods: {
+    ...mapMutations(['setSearchItem']),
     getInfo() {
       this.getText = this.form
-      // 1 mengirim getText ke home.vue
       this.searchItem(this.getText)
-      // this.$emit('dataText', this.getText)
+      this.searchItem()
     },
     ...mapActions({ handleLogout: 'logout' }),
     ...mapActions(['searchItem'])
