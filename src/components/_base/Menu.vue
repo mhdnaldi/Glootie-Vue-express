@@ -16,13 +16,19 @@
         <h5 style="color: #eee">{{ value.menu_name }}</h5>
         <div class="flex">
           <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-          <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
+          <b-button
+            class="btn"
+            variant="danger"
+            size="sm"
+            @click="addToCart(value)"
+            >ADD</b-button
+          >
         </div>
       </div>
     </div>
     <div class="pgn">
       <b-pagination
-        v-model="page"
+        v-model="currentPage"
         :total-rows="rows"
         :per-page="limit"
         variant="dark"
@@ -34,24 +40,23 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      limit: 9,
-      cart: [],
-      count: 1,
-      pagination: {}
+      currentPage: 1,
+      count: 1
     }
   },
   computed: {
-    rows() {
-      return this.pagination.totalData
-    },
-    ...mapGetters({ products: 'getItems' })
+    ...mapGetters({
+      products: 'getItems',
+      rows: 'getTotalData',
+      limit: 'getLimit',
+      cart: 'getCart'
+    })
   },
   created() {
-    this.searchItem()
     this.getItem()
   },
   props: {
@@ -64,43 +69,15 @@ export default {
   },
   methods: {
     ...mapActions(['searchItem', 'getItem']),
+    ...mapMutations(['setPagination', 'addToCart', 'setSearchItem']),
     pageChange(event) {
-      this.$router.push(`?page=${event}`)
-      // console.log(event)
-      this.page = event
-      this.getMenu()
+      this.setPagination(event)
+      this.getItem()
     },
-    // end point search
-    // searchMenu() {
-    //   axios
-    //     .get(`http://localhost:3000/menu/search?name=${this.dataText}`)
-    //     .then((res) => {
-    //       this.$router.push(`?name=${this.dataText}`)
-    //       this.products = res.data
-    //     })
-    //     .catch((err) => console.log(err))
-    // },
 
-    addToCart(data) {
-      const setCart = {
-        menu_name: data.menu_name,
-        menu_id: data.menu_id,
-        menu_price: data.menu_price,
-        qty: 1
-      }
-      this.cart = [...this.cart, setCart]
-      //  1OBJECT YG DIKIRIM KE HOME.VUE
-      const setData = {
-        cart: this.cart,
-        count: this.count
-      }
-      this.$emit('orders', setData) /* 1 */
-      // this.$emit('count', 1)
-    },
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
-      return this.cart.some((value) => value.menu_id === data.menu_id)
-      // console.log(this.sortData)
+      return this.cart.some(value => value.menu_id === data.menu_id)
     }
   }
 }

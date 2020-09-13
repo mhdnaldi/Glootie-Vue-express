@@ -1,6 +1,6 @@
 <template>
-  <div class="login-form">
-    <b-col cols="12">
+  <b-col cols="12">
+    <div class="login-form">
       <form>
         <div class="form-group">
           <input
@@ -20,16 +20,20 @@
           />
         </div>
         <div class="login-button">
-          <button type="submit" class="btn login" @click.prevent="onSubmit">Login</button>
-          <button type="button" class="btn reset" @click.prevent="onReset">Reset</button>
+          <button type="submit" class="btn login" @click.prevent="onSubmit">
+            Login
+          </button>
+          <button type="button" class="btn reset" @click.prevent="onReset">
+            Reset
+          </button>
           <p class="nb">
             Don't have an account? please sign-up first
             <router-link to="/register" class="nb-1">Register</router-link>
           </p>
         </div>
       </form>
-    </b-col>
-  </div>
+    </div>
+  </b-col>
 </template>
 
 <script>
@@ -48,11 +52,11 @@ export default {
     ...mapActions(['login']),
     onSubmit() {
       this.login(this.form)
-        .then((res) => {
+        .then(res => {
           alert(res)
           this.$router.push('/')
         })
-        .catch((err) => {
+        .catch(err => {
           alert(err.data.msg)
         })
     },
@@ -68,7 +72,7 @@ export default {
 
 <style scoped>
 .login-form {
-  width: 500px;
+  width: 80%;
   height: 500px;
   margin: 100px auto;
   background-color: #7ea04d;
@@ -79,6 +83,10 @@ export default {
 form {
   padding: 150px 30px;
   box-sizing: border-box;
+}
+
+form input {
+  border-radius: 10px;
 }
 
 .login-button {

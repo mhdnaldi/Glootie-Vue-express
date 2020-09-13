@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -53,16 +53,22 @@ export default {
       getText: ''
     }
   },
-  props: ['count'],
+  computed: {
+    ...mapGetters({ count: 'getCount' })
+  },
   methods: {
     ...mapMutations(['setSearchItem']),
     getInfo() {
       this.getText = this.form
-      this.setSearchItem(this.getText)
-      this.getItem()
+      if (this.getText === '') {
+        this.getItem()
+      } else {
+        this.setSearchItem(this.getText)
+        this.searchItem()
+      }
     },
     ...mapActions({ handleLogout: 'logout' }),
-    ...mapActions(['getItem'])
+    ...mapActions(['searchItem', 'getItem'])
   }
 }
 </script>

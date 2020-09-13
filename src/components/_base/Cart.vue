@@ -1,11 +1,11 @@
 <template>
   <b-col cols lg="4" sm="12" xs="12" class="card-image">
-    <div v-if="orders.length < 1">
+    <div v-if="getCart.length < 1">
       <img src="../../assets/icons/cart.png" alt class="cart-img" />
       <h3>Your cart is empty</h3>
       <h5 style="color:darkgrey">Please add some items from the menu</h5>
     </div>
-    <div class="carts" v-for="(value, index) in orders" :key="index">
+    <div class="carts" v-for="(value, index) in getCart" :key="index">
       <div>
         <img src="../../assets/img/bear.png" alt />
       </div>
@@ -19,7 +19,7 @@
         <h6>Rp. {{ value.menu_price * value.qty }}</h6>
       </div>
     </div>
-    <div class="total" style="text-align: center" v-if="orders.length > 0">
+    <div class="total" style="text-align: center" v-if="getCart.length > 0">
       <b-button @click="checkTotal()">Total</b-button>
     </div>
     <div class="totalPrice" v-if="totalPrice > 0">
@@ -31,7 +31,9 @@
     <h6
       style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
       v-if="totalPrice > 0"
-    >The Price Does Not Include Additional Taxes</h6>
+    >
+      The Price Does Not Include Additional Taxes
+    </h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
@@ -52,7 +54,9 @@
             <p v-for="(value, index) in qtyModal" :key="index">{{ value }} x</p>
           </div>
           <div>
-            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{ value }}</p>
+            <p v-for="(value, index) in priceModal" :key="index">
+              :Rp. {{ value }}
+            </p>
 
             <p>Tax 10%: {{ taxes }}</p>
             <p>Total: {{ subTotal }}</p>
@@ -61,68 +65,36 @@
       </b-modal>
     </div>
     <div class="cancel" v-if="totalPrice > 0">
-      <button>CANCEL</button>
+      <button @click="cancel">CANCEL</button>
     </div>
   </b-col>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+// import axios from 'axios'
 export default {
   name: 'cart',
   data() {
     return {
-      qty: 1,
-      newQty: 0,
-      totalPrice: 0,
-      //
-      invoice: '',
-      taxes: [],
-      subTotal: [],
-      allOrders: [],
-      priceModal: [],
-      qtyModal: [],
-      nameModal: []
+      qty: 1
     }
   },
-  // 4 props itu gunanya untuk menerima data dari file Home.js
-  props: ['orders'],
+  computed: {
+    ...mapGetters(['getCart']),
+    ...mapGetters({
+      priceModal: 'getPriceModal',
+      qtyModal: 'getQtyModal',
+      nameModal: 'getNameModal',
+      taxes: 'getTaxes',
+      invoice: 'getInvoice',
+      subTotal: 'getSubtotal',
+      totalPrice: 'getTotalPrice'
+    })
+  },
   methods: {
-    postOrder() {
-      const price = this.orders.map((value, i) => {
-        return value.menu_price * value.qty
-      })
-      const name = this.orders.map((value, i) => {
-        return value.menu_name
-      })
-      const quantity = this.orders.map((value, i) => {
-        return value.qty
-      })
-
-      this.priceModal = price
-      this.nameModal = name
-      this.qtyModal = quantity
-      axios
-        .post('http://localhost:3000/order', this.orders)
-        .then((res) => {
-          this.taxes = res.data.data.tax
-          this.invoice = res.data.data.updateHistory.invoice
-          this.subTotal = res.data.data.updateHistory.history_subtotal
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    checkTotal() {
-      const price = this.orders.map((value, i) => {
-        return value.menu_price * value.qty
-      })
-      const totalPrice = price.reduce((value, i) => {
-        return value + i
-      })
-      this.totalPrice = totalPrice
-    },
-
+    ...mapActions(['postOrder']),
+    ...mapMutations(['cancel', 'checkTotal']),
     asc(data) {
       data.qty++
     },
