@@ -12,7 +12,7 @@
     </div>
     <div>
       <router-link to="/settings">
-        <img src="../../assets/icons/add.png" alt />
+        <img src="../../assets/icons/settings.png" alt />
       </router-link>
     </div>
     <div class="sort" v-if="path === '/'">

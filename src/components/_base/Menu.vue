@@ -8,7 +8,7 @@
         style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
       >
         <div class="img-check">
-          <img src="../../assets/img/bear.png" alt />
+          <img :src="'http://localhost:3000/'+value.menu_image " alt />
           <div class="check" v-if="check(value)">
             <img src="../../assets/icons/check.png" alt />
           </div>
@@ -16,13 +16,7 @@
         <h5 style="color: #eee">{{ value.menu_name }}</h5>
         <div class="flex">
           <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-          <b-button
-            class="btn"
-            variant="danger"
-            size="sm"
-            @click="addToCart(value)"
-            >ADD</b-button
-          >
+          <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
         </div>
       </div>
     </div>
@@ -45,7 +39,8 @@ export default {
   data() {
     return {
       currentPage: 1,
-      count: 1
+      count: 1,
+      port: process.env.VUE_APP_URL
     }
   },
   computed: {
@@ -77,7 +72,7 @@ export default {
 
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
-      return this.cart.some(value => value.menu_id === data.menu_id)
+      return this.cart.some((value) => value.menu_id === data.menu_id)
     }
   }
 }

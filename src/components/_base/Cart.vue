@@ -7,7 +7,7 @@
     </div>
     <div class="carts" v-for="(value, index) in getCart" :key="index">
       <div>
-        <img src="../../assets/img/bear.png" alt />
+        <img :src="'http://localhost:3000/' + value.menu_image" alt />
       </div>
       <div class="info">
         <h5>{{ value.menu_name }}</h5>
