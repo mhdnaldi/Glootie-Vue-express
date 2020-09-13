@@ -10,6 +10,11 @@
         <div class="setting">
           <h5>Settings</h5>
         </div>
+        <div>
+          <router-link to="/user-settings">
+            <button class="btn btn-primary">User</button>
+          </router-link>
+        </div>
       </b-col>
     </b-row>
     <b-row>
@@ -35,32 +40,21 @@
               />
 
               <label class="mt-4 ml-2" style="color:#757575">Category</label>
-              <b-form-select
-                v-model="form.category_id"
-                :options="category"
-                style="height: 50px"
-              ></b-form-select>
+              <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
               <label class="ml-2 mt-2" style="color:#757575">Status</label>
-              <b-form-select
-                v-model="form.menu_status"
-                :options="status"
-                style="height: 50px"
-              ></b-form-select>
+              <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
 
               <input style="color: #5D5057" type="file" @change="handleFile" />
               <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
               <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
-                <b-button variant="primary" type="submit" v-show="!isUpdate"
-                  >Save</b-button
-                >
+                <b-button variant="primary" type="submit" v-show="!isUpdate">Save</b-button>
                 <b-button
                   variant="success"
                   type="button"
                   v-show="isUpdate"
                   @click="patchMenu"
-                  >Update</b-button
-                >
+                >Update</b-button>
               </div>
             </form>
           </div>
@@ -159,7 +153,7 @@ export default {
       data.append('menu_status', this.form.menu_status)
       data.append('menu_image', this.form.menu_image)
       this.addMenu(data)
-        .then(res => {
+        .then((res) => {
           console.log(res)
           this.alert = true
           this.isMsg = res.msg
@@ -168,7 +162,7 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     },
@@ -198,7 +192,7 @@ export default {
         form: data
       }
       this.editMenu(setData)
-        .then(res => {
+        .then((res) => {
           this.alert = true
           this.isMsg = res.msg
           this.getAllMenu()
@@ -206,14 +200,14 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch(res => {
+        .catch((res) => {
           alert(res.data.msg)
         })
     },
     deleteItem(data) {
       this.menu_id = data.menu_id
       this.deleteMenu(this.menu_id)
-        .then(res => {
+        .then((res) => {
           this.alert = true
           this.isMsg = res.data.msg
           this.getAllMenu()
@@ -221,7 +215,7 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
         })
     }

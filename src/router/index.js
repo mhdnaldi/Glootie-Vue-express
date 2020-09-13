@@ -5,6 +5,7 @@ import History from '../views/History.vue'
 import Settings from '../views/Settings.vue'
 import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
+import User from '../views/auth/User.vue'
 
 import store from '../store/index'
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/user-settings',
+    name: 'User',
+    component: User
   },
   {
     path: '/history',

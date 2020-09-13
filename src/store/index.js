@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Auth from './modules/auth'
 import Product from './modules/product'
 import Menu from './modules/menu'
+import Settings from './modules/settings'
 import History from './modules/history'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     Auth,
     Product,
     Menu,
-    History
+    History,
+    Settings
   },
   state: {},
   mutations: {},

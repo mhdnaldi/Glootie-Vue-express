@@ -31,13 +31,11 @@
     <h6
       style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
       v-if="totalPrice > 0"
-    >
-      The Price Does Not Include Additional Taxes
-    </h6>
+    >The Price Does Not Include Additional Taxes</h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
-      <b-modal id="modal-1" title="Checkout">
+      <b-modal id="modal-1" title="Checkout" hide-footer>
         <div class="modal-invoice">
           <div>
             <h6>Cashier: Cashier 1</h6>
@@ -54,13 +52,14 @@
             <p v-for="(value, index) in qtyModal" :key="index">{{ value }} x</p>
           </div>
           <div>
-            <p v-for="(value, index) in priceModal" :key="index">
-              :Rp. {{ value }}
-            </p>
+            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{ value }}</p>
 
             <p>Tax 10%: {{ taxes }}</p>
             <p>Total: {{ subTotal }}</p>
           </div>
+        </div>
+        <div>
+          <button class="btn btn-success" width="100%" @click="cancel">OK</button>
         </div>
       </b-modal>
     </div>
