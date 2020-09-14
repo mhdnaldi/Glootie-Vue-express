@@ -1,6 +1,6 @@
-<h1 align='center'>Vue JS - Glootie POS APP</h1>
+<h1 align='center'>Vue JS - Glootie</h1>
 
-#background_projek. [More about Vue](https://vuejs.org/)
+POINT OF SALE. [More about POS](https://en.wikipedia.org/wiki/Point_of_sale)
 
 ## Built With
 
