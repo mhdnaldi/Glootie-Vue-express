@@ -22,6 +22,7 @@
         <b-col cols="12">
           <div>
             <b-alert v-bind:show="alert">{{ isMsg }}</b-alert>
+            <b-alert v-bind:show="alertErr" variant="danger">{{ isMsg }}</b-alert>
             <form v-on:submit.prevent="addItem">
               <input
                 style="color: #5D5057"
@@ -132,6 +133,7 @@ export default {
       },
       isMsg: '',
       alert: false,
+      alertErr: false,
       // patch
       isUpdate: false,
       menu_id: '',
@@ -166,10 +168,10 @@ export default {
           }, 3000)
         })
         .catch((err) => {
-          this.alert = true
+          this.alertErr = true
           this.isMsg = err.data.msg
           setTimeout(() => {
-            this.alert = false
+            this.alertErr = false
           }, 3000)
         })
     },
@@ -208,10 +210,10 @@ export default {
           }, 3000)
         })
         .catch((err) => {
-          this.alert = true
+          this.alertErr = true
           this.isMsg = err.data.msg
           setTimeout(() => {
-            this.alert = false
+            this.alertErr = false
           }, 3000)
         })
     },
@@ -223,14 +225,14 @@ export default {
           this.isMsg = res.data.msg
           this.getAllMenu()
           setTimeout(() => {
-            this.alert = false
+            this.alertErr = false
           }, 3000)
         })
         .catch((err) => {
           this.alert = true
           this.isMsg = err.data.msg
           setTimeout(() => {
-            this.alert = false
+            this.alertErr = false
           }, 3000)
         })
     }

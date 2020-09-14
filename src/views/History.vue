@@ -31,10 +31,10 @@
               <h4>Revenue</h4>
             </div>
             <div>
-              <b-dropdown text="Months">
+              <!-- <b-dropdown text="Months">
                 <b-dropdown-item href="#">An item</b-dropdown-item>
                 <b-dropdown-item href="#">Another item</b-dropdown-item>
-              </b-dropdown>
+              </b-dropdown>-->
             </div>
           </b-col>
         </b-row>
@@ -50,10 +50,10 @@
               <h4>Recent Order</h4>
             </div>
             <div>
-              <b-dropdown text="Today">
+              <!-- <b-dropdown text="Today">
                 <b-dropdown-item>Today</b-dropdown-item>
                 <b-dropdown-item>This Week</b-dropdown-item>
-              </b-dropdown>
+              </b-dropdown>-->
             </div>
           </b-col>
         </b-row>
