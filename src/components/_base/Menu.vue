@@ -8,7 +8,7 @@
         style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
       >
         <div class="img-check">
-          <img :src="'http://localhost:3000/'+value.menu_image " alt />
+          <img :src="port+value.menu_image " alt />
           <div class="check" v-if="check(value)">
             <img src="../../assets/icons/check.png" alt />
           </div>

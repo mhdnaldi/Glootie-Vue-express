@@ -3,7 +3,7 @@
     <b-col cols lg="8" sm="12" xs="12" class="navbar">
       <div class="one">
         <a @click="handleLogout">
-          <img src="../../assets/icons/menu.png" alt />
+          <img style="width: 35px" src="../../assets/icons/logout.png" alt />
         </a>
       </div>
       <div>

@@ -82,7 +82,7 @@ export default {
       context.state.qtyModal = quantity
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/order', context.state.cart)
+          .post(`${process.env.VUE_APP_URL}order`, context.state.cart)
           .then(res => {
             context.state.taxes = res.data.data.tax
             context.state.invoice = res.data.data.updateHistory.invoice
@@ -97,7 +97,9 @@ export default {
     searchItem(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://localhost:3000/menu/search?name=${context.state.search}`)
+          .get(
+            `${process.env.VUE_APP_URL}menu/search?name=${context.state.search}`
+          )
           .then(res => {
             context.commit('setItem', res.data)
           })
@@ -110,7 +112,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://localhost:3000/menu?page=${context.state.page}&limit=${context.state.limit}&sort=${context.state.sort}&asc_desc=${context.state.asc_desc}`
+            `${process.env.VUE_APP_URL}menu?page=${context.state.page}&limit=${context.state.limit}&sort=${context.state.sort}&asc_desc=${context.state.asc_desc}`
           )
           .then(res => {
             context.commit('setItem', res.data)

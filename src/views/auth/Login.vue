@@ -20,12 +20,8 @@
           />
         </div>
         <div class="login-button">
-          <button type="submit" class="btn login" @click.prevent="onSubmit">
-            Login
-          </button>
-          <button type="button" class="btn reset" @click.prevent="onReset">
-            Reset
-          </button>
+          <button type="submit" class="btn login" @click.prevent="onSubmit">Login</button>
+          <button type="button" class="btn reset" @click.prevent="onReset">Reset</button>
           <p class="nb">
             Don't have an account? please sign-up first
             <router-link to="/register" class="nb-1">Register</router-link>
@@ -52,11 +48,11 @@ export default {
     ...mapActions(['login']),
     onSubmit() {
       this.login(this.form)
-        .then(res => {
+        .then((res) => {
           alert(res)
           this.$router.push('/')
         })
-        .catch(err => {
+        .catch((err) => {
           alert(err.data.msg)
         })
     },
@@ -77,7 +73,7 @@ export default {
   margin: 100px auto;
   background-color: #7ea04d;
   border-radius: 40px;
-  box-shadow: 4px 4px 15px #fe7171;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 form {

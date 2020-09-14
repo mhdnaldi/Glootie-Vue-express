@@ -29,7 +29,7 @@ export default {
     recentOrdersHistory(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/history/recent-orders')
+          .get(`${process.env.VUE_APP_URL}history/recent-orders`)
           .then(res => {
             context.commit('setRecent', res.data.data)
           })
@@ -41,7 +41,7 @@ export default {
     todaysIncomeHistory(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/history/total-today')
+          .get(`${process.env.VUE_APP_URL}history/total-today`)
           .then(res => {
             context.commit('setTodaysIncome', res.data.data)
           })
@@ -53,7 +53,7 @@ export default {
     weeksOrdersHistory(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/order/this-week-order')
+          .get(`${process.env.VUE_APP_URL}order/this-week-order`)
           .then(res => {
             context.commit('setOrdersPerWeek', res.data.data)
           })
@@ -65,7 +65,7 @@ export default {
     yearsIncome(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/history/total-yearly')
+          .get(`${process.env.VUE_APP_URL}history/total-yearly`)
           .then(res => {
             context.commit('setYearsIncome', res.data.data)
           })
@@ -77,7 +77,7 @@ export default {
     chart(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/history/chart')
+          .get(`${process.env.VUE_APP_URL}history/chart`)
           .then(res => {
             const chartKick = res.data.data
             const charts = []

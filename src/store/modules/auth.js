@@ -6,7 +6,7 @@ export default {
     register(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/users/register', payload)
+          .post(`${process.env.VUE_APP_URL}users/register`, payload)
           .then(res => {
             context.commit('regUser', res.data.data)
             resolve(res.data.msg)
@@ -19,7 +19,7 @@ export default {
     login(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/users/login', payload)
+          .post(`${process.env.VUE_APP_URL}users/login`, payload)
           .then(res => {
             context.commit('setUser', res.data.data) // mengirim data ke payload setUser
             localStorage.setItem('token', res.data.data.token) // set token ke localstorage

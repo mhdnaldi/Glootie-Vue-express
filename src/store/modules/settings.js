@@ -13,7 +13,7 @@ export default {
     getAllUsers(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get('http://localhost:3000/users/')
+          .get(`${process.env.VUE_APP_URL}users/`)
           .then(res => {
             console.log(res.data.data)
             context.commit('setAllUsers', res.data.data)
@@ -26,7 +26,10 @@ export default {
     editUsers(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .patch(`http://localhost:3000/users/${payload.user_id}`, payload.form)
+          .patch(
+            `${process.env.VUE_APP_URL}users/${payload.user_id}`,
+            payload.form
+          )
           .then(res => {
             resolve(res.data.msg)
           })
@@ -38,7 +41,7 @@ export default {
     deleteUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .delete(`http://localhost:3000/users/${payload}`)
+          .delete(`${process.env.VUE_APP_URL}users/${payload}`)
           .then(res => {
             console.log(res)
             resolve(res.data.msg)

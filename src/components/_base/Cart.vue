@@ -7,7 +7,7 @@
     </div>
     <div class="carts" v-for="(value, index) in getCart" :key="index">
       <div>
-        <img :src="'http://localhost:3000/' + value.menu_image" alt />
+        <img :src="port + value.menu_image" alt />
       </div>
       <div class="info">
         <h5>{{ value.menu_name }}</h5>
@@ -76,7 +76,8 @@ export default {
   name: 'cart',
   data() {
     return {
-      qty: 1
+      qty: 1,
+      port: process.env.VUE_APP_URL
     }
   },
   computed: {

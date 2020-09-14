@@ -12,12 +12,7 @@
           />
         </div>
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Username"
-            v-model="form.user_name"
-          />
+          <input type="text" class="form-control" placeholder="Username" v-model="form.user_name" />
         </div>
         <div class="form-group">
           <input
@@ -29,12 +24,8 @@
         </div>
 
         <div class="login-button">
-          <button type="submit" class="btn login" @click.prevent="onSubmit">
-            Register
-          </button>
-          <button type="button" class="btn reset" @click.prevent="onReset">
-            Reset
-          </button>
+          <button type="submit" class="btn login" @click.prevent="onSubmit">Register</button>
+          <button type="button" class="btn reset" @click.prevent="onReset">Reset</button>
           <p class="nb">
             Already have an account? please login here
             <router-link to="/login" class="nb-1">Login</router-link>
@@ -62,11 +53,11 @@ export default {
     ...mapActions(['register']),
     onSubmit() {
       this.register(this.form)
-        .then(res => {
+        .then((res) => {
           alert(res)
           this.$router.push('/login')
         })
-        .catch(err => {
+        .catch((err) => {
           alert(err.data.msg)
         })
     },
@@ -88,7 +79,7 @@ export default {
   margin: 100px auto;
   background-color: #7ea04d;
   border-radius: 40px;
-  box-shadow: 4px 4px 15px #fe7171;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 form input {

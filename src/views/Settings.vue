@@ -43,8 +43,9 @@
               <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
               <label class="ml-2 mt-2" style="color:#757575">Status</label>
               <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
-
-              <input style="color: #5D5057" type="file" @change="handleFile" />
+              <label class="ml-2 mt-2" style="color:#757575">Choose an image</label>
+              <br />
+              <input class="ml-2" style="color: #5D5057" type="file" @change="handleFile" required />
               <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
               <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
@@ -154,7 +155,6 @@ export default {
       data.append('menu_image', this.form.menu_image)
       this.addMenu(data)
         .then((res) => {
-          console.log(res)
           this.alert = true
           this.isMsg = res.msg
           this.getAllMenu()
@@ -163,7 +163,11 @@ export default {
           }, 3000)
         })
         .catch((err) => {
-          console.log(err)
+          this.alert = true
+          this.isMsg = err.data.msg
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
         })
     },
     updateItem(value) {
@@ -200,8 +204,12 @@ export default {
             this.alert = false
           }, 3000)
         })
-        .catch((res) => {
-          alert(res.data.msg)
+        .catch((err) => {
+          this.alert = true
+          this.isMsg = err.data.msg
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
         })
     },
     deleteItem(data) {
@@ -216,7 +224,11 @@ export default {
           }, 3000)
         })
         .catch((err) => {
-          console.log(err)
+          this.alert = true
+          this.isMsg = err.data.msg
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
         })
     }
   }
