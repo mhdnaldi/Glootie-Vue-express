@@ -27,4 +27,7 @@ export default {
 * {
   font-family: AirbnbCerealMedium;
 }
+html {
+  background-color: #111;
+}
 </style>

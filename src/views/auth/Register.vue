@@ -1,7 +1,9 @@
 <template>
-  <b-col cols="12">
+  <b-col cols="12" style="background-color: #111">
     <div class="register-form">
+      <h1 align="center" class="pt-4" style="margin-bottom: -120px">SIGN UP</h1>
       <form>
+        <b-alert v-bind:show="alert">{{ isMsg }}</b-alert>
         <div class="form-group">
           <input
             type="email"
@@ -9,6 +11,7 @@
             aria-describedby="emailHelp"
             placeholder="Enter email"
             v-model="form.user_email"
+            required
           />
         </div>
         <div class="form-group">
@@ -20,6 +23,7 @@
             class="form-control"
             placeholder="Password"
             v-model="form.user_password"
+            required
           />
         </div>
 
@@ -46,7 +50,9 @@ export default {
         user_email: '',
         user_password: '',
         user_name: ''
-      }
+      },
+      isMsg: '',
+      alert: false
     }
   },
   methods: {
@@ -54,11 +60,20 @@ export default {
     onSubmit() {
       this.register(this.form)
         .then((res) => {
-          alert(res)
+          this.alert = true
+          this.isMsg = res
+          this.getAllMenu()
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
           this.$router.push('/login')
         })
         .catch((err) => {
-          alert(err.data.msg)
+          this.alert = true
+          this.isMsg = err.data.msg
+          setTimeout(() => {
+            this.alert = false
+          }, 3000)
         })
     },
     onReset() {
@@ -74,7 +89,7 @@ export default {
 
 <style scoped>
 .register-form {
-  width: 80%;
+  max-width: 400px;
   height: 500px;
   margin: 100px auto;
   background-color: #7ea04d;
