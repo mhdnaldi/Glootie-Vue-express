@@ -52,14 +52,20 @@
             <p v-for="(value, index) in qtyModal" :key="index">{{ value }} x</p>
           </div>
           <div>
-            <p v-for="(value, index) in priceModal" :key="index">:Rp. {{ value }}</p>
+            <p
+              style="text-align: right"
+              v-for="(value, index) in priceModal"
+              :key="index"
+            >:Rp. {{ value }}</p>
 
-            <p>Tax 10%: {{ taxes }}</p>
-            <p>Total: {{ subTotal }}</p>
+            <p style="text-align: right">Tax 10%: Rp. {{ taxes }}</p>
+            <p style="text-align: right">Total: Rp. {{ subTotal }}</p>
           </div>
         </div>
-        <div>
-          <button class="btn btn-success" width="100%" @click="cancel">OK</button>
+        <div class="modal-button">
+          <button class="btn" style="background-color: aqua" width="100%" @click="cancel">OK</button>
+          <p style="line-height: 30px; margin-bottom: -2px">OR</p>
+          <button class="btn" style="background-color: pink" width="100%" @click="cancel">SEND EMAIL</button>
         </div>
       </b-modal>
     </div>
@@ -106,6 +112,11 @@ export default {
 </script>
 
 <style scoped>
+.modal-button {
+  display: grid;
+  grid-template-columns: 3fr;
+}
+
 .total-modal,
 .modal-invoice {
   display: flex;
@@ -118,17 +129,17 @@ export default {
   border-color: #29dfff;
 
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+  /* border-radius: 20px; */
   width: 90%;
 }
 
 .total button {
-  background-color: red;
+  background-color: aqua;
   color: #111;
   text-transform: uppercase;
-  border-color: red;
-  border-radius: 20px;
-  width: 30%;
+  border-color: aqua;
+  /* border-radius: 20px; */
+  width: 20%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin: 10px 0;
 }
@@ -139,7 +150,7 @@ export default {
   border-color: #fbb2b4;
 
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+  /* border-radius: 20px; */
   width: 90%;
   padding: 5px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <b-col cols lg="7" md="12" sm="12" xs="12" style="background-color: #cecece">
+  <b-col cols lg="7" md="12" sm="12" xs="12" style="background-color: #cecece; height: 960px">
     <div class="menu-items">
       <div
         v-for="(value, index) in products"
