@@ -57,11 +57,10 @@ export default {
         .then((res) => {
           this.alert = true
           this.isMsg = res
-          this.getAllMenu()
           setTimeout(() => {
             this.alert = false
-          }, 3000)
-          this.$router.push('/')
+            this.$router.push('/')
+          }, 2000)
         })
         .catch((err) => {
           this.alert = true

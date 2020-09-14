@@ -75,11 +75,13 @@
               <th></th>
             </tr>
             <tr v-for="(value, index) in products" :key="index">
-              <td>{{ value.menu_name }}</td>
-              <td>Rp. {{ value.menu_price }}</td>
-              <td style="text-align: center;">{{ value.category_id }}</td>
-              <td style="text-align: center;">{{ value.menu_status }}</td>
-              <td style="text-align: center;">{{ value.menu_image }}</td>
+              <td style="line-height:50px">{{ value.menu_name }}</td>
+              <td style="line-height:50px">Rp. {{ value.menu_price }}</td>
+              <td style="text-align: center; line-height:50px">{{ value.category_id }}</td>
+              <td style="text-align: center; line-height:50px">{{ value.menu_status }}</td>
+              <td style="text-align: center; ">
+                <img style="width:60px" :src="port + value.menu_image" alt />
+              </td>
               <td style="text-align: center;">
                 <b-button
                   variant="success"
@@ -132,7 +134,8 @@ export default {
       alert: false,
       // patch
       isUpdate: false,
-      menu_id: ''
+      menu_id: '',
+      port: process.env.VUE_APP_URL
     }
   },
   created() {

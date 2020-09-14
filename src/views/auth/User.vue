@@ -80,11 +80,11 @@
               <th></th>
             </tr>
             <tr v-for="(value, index) in users" :key="index">
-              <td>{{value.user_email}}</td>
-              <td>{{value.user_name}}</td>
-              <td style="text-align: center;">{{value.user_role}}</td>
-              <td style="text-align: center;">{{value.user_status}}</td>
-              <td style="text-align: center;">
+              <td style="line-height:50px">{{value.user_email}}</td>
+              <td style="line-height:50px">{{value.user_name}}</td>
+              <td style="text-align: center; line-height:50px">{{value.user_role}}</td>
+              <td style="text-align: center; line-height:50px">{{value.user_status}}</td>
+              <td style="text-align: center; line-height:50px">
                 <b-button
                   variant="success"
                   style="margin: 10px 10px"
