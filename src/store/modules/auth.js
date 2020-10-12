@@ -26,7 +26,6 @@ export default {
             resolve(res.data.msg)
           })
           .catch(err => {
-            console.log(err)
             reject(err.response)
           })
       })
@@ -101,6 +100,9 @@ export default {
   getters: {
     isLogin(state) {
       return state.token !== null
+    },
+    userLogin(state) {
+      return state.user
     }
   }
 }

@@ -16,7 +16,7 @@
         <h5 style="color: #eee">{{ value.menu_name }}</h5>
         <div class="flex">
           <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-          <b-button class="btn" variant="danger" size="sm" @click="addToCart(value)">ADD</b-button>
+          <b-button class="btn" variant="danger" size="sm" @click="addCart( value)">ADD</b-button>
         </div>
       </div>
     </div>
@@ -48,7 +48,8 @@ export default {
       products: 'getItems',
       rows: 'getTotalData',
       limit: 'getLimit',
-      cart: 'getCart'
+      cart: 'getCart',
+      user: 'userLogin'
     })
   },
   created() {
@@ -73,6 +74,13 @@ export default {
     check(data) {
       // check data berdasarkan id terus di some jika idnya sama maka bernilai true
       return this.cart.some((value) => value.menu_id === data.menu_id)
+    },
+    addCart(payload) {
+      const setData = {
+        data: payload,
+        cashier: this.user.user_name
+      }
+      this.addToCart(setData)
     }
   }
 }

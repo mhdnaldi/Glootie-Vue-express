@@ -38,7 +38,7 @@
       <b-modal id="modal-1" title="Checkout" hide-footer>
         <div class="modal-invoice">
           <div>
-            <h6>Cashier: Cashier 1</h6>
+            <h6>Cashier: {{user.user_name}}</h6>
           </div>
           <div>
             <h6>Receipt no: #{{ invoice }}</h6>
@@ -95,7 +95,8 @@ export default {
       taxes: 'getTaxes',
       invoice: 'getInvoice',
       subTotal: 'getSubtotal',
-      totalPrice: 'getTotalPrice'
+      totalPrice: 'getTotalPrice',
+      user: 'userLogin'
     })
   },
   methods: {

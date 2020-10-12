@@ -70,7 +70,7 @@
               </tr>
               <tr v-for="(value, index) in recentOrders" :key="index">
                 <td>#{{ value.invoice }}</td>
-                <td>Cashier 1</td>
+                <td>{{value.cashier}}</td>
                 <td>{{ value.created_at.slice(0, 10) }}</td>
                 <td>
                   <ul v-for="(value, index) in value.orders" :key="index">
@@ -100,6 +100,7 @@ export default {
     this.chart()
     this.weeksOrdersHistory()
     this.yearsIncome()
+    // console.log(this.user)
   },
   computed: {
     ...mapGetters({
@@ -107,7 +108,8 @@ export default {
       todayIncome: 'todaysIncome',
       weekOrders: 'weeksOrder',
       yearIncome: 'yearsIncome',
-      chartData: 'chartsData'
+      chartData: 'chartsData',
+      user: 'userLogin'
     })
   },
   methods: {

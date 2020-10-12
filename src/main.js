@@ -6,13 +6,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
-
+import VueSweetalert2 from 'vue-sweetalert2'
 import store from './store/index'
+import moment from 'moment'
 
+Vue.prototype.moment = moment
+Vue.use(require('vue-moment'))
 Vue.use(Chartkick.use(Chart))
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-
+Vue.use(VueSweetalert2)
 Vue.config.productionTip = false
 
 new Vue({

@@ -20,7 +20,8 @@ export default {
     taxes: [],
     invoice: '',
     subTotal: [],
-    totalPrice: 0
+    totalPrice: 0,
+    cashier: ''
   },
   mutations: {
     cancel(state, payload) {
@@ -45,11 +46,12 @@ export default {
       state.page = payload
     },
     addToCart(state, payload) {
+      state.cashier = payload.cashier
       const setCart = {
-        menu_name: payload.menu_name,
-        menu_id: payload.menu_id,
-        menu_price: payload.menu_price,
-        menu_image: payload.menu_image,
+        menu_name: payload.data.menu_name,
+        menu_id: payload.data.menu_id,
+        menu_price: payload.data.menu_price,
+        menu_image: payload.data.menu_image,
         qty: 1
       }
       state.cart = [...state.cart, setCart]
@@ -82,7 +84,10 @@ export default {
       context.state.qtyModal = quantity
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_URL}order`, context.state.cart)
+          .post(
+            `${process.env.VUE_APP_URL}order?name=${context.state.cashier}`,
+            context.state.cart
+          )
           .then(res => {
             context.state.taxes = res.data.data.tax
             context.state.invoice = res.data.data.updateHistory.invoice
@@ -90,7 +95,7 @@ export default {
               res.data.data.updateHistory.history_subtotal
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     },

@@ -29,7 +29,7 @@ export default {
     recentOrdersHistory(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${process.env.VUE_APP_URL}history/recent-orders`)
+          .get(`${process.env.VUE_APP_URL}history/recent-orders`, payload)
           .then(res => {
             context.commit('setRecent', res.data.data)
           })
