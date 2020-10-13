@@ -18,10 +18,12 @@
         <b-col cols="12">
           <div>
             <b-alert v-bind:show="alert">{{ isMsg }}</b-alert>
-            <b-alert v-bind:show="alertErr" variant="danger">{{ isMsg }}</b-alert>
+            <b-alert v-bind:show="alertErr" variant="danger">{{
+              isMsg
+            }}</b-alert>
             <form v-on:submit.prevent="addItem">
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.user_email"
                 placeholder="Email"
@@ -29,28 +31,28 @@
               />
 
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.user_password"
                 placeholder="Password"
                 required
               />
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.user_name"
                 placeholder="Username"
                 required
               />
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.user_role"
                 placeholder="User Role"
                 required
               />
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.user_status"
                 placeholder="User Status"
@@ -62,7 +64,8 @@
                   type="button"
                   @click="patchUser"
                   v-show="isUpdate"
-                >Update</b-button>
+                  >Update</b-button
+                >
               </div>
             </form>
           </div>
@@ -76,16 +79,20 @@
             <tr>
               <th>Email</th>
               <th>Username</th>
-              <th style="text-align: center;">Role</th>
-              <th style="text-align: center;">Status</th>
+              <th style="text-align: center">Role</th>
+              <th style="text-align: center">Status</th>
               <th></th>
             </tr>
             <tr v-for="(value, index) in users" :key="index">
-              <td style="line-height:50px">{{value.user_email}}</td>
-              <td style="line-height:50px">{{value.user_name}}</td>
-              <td style="text-align: center; line-height:50px">{{value.user_role}}</td>
-              <td style="text-align: center; line-height:50px">{{value.user_status}}</td>
-              <td style="text-align: center; line-height:50px">
+              <td style="line-height: 50px">{{ value.user_email }}</td>
+              <td style="line-height: 50px">{{ value.user_name }}</td>
+              <td style="text-align: center; line-height: 50px">
+                {{ value.user_role }}
+              </td>
+              <td style="text-align: center; line-height: 50px">
+                {{ value.user_status }}
+              </td>
+              <td style="text-align: center; line-height: 50px">
                 <b-button
                   variant="success"
                   style="margin: 10px 10px"
@@ -157,38 +164,46 @@ export default {
       }
       this.editUsers(setData)
         .then((res) => {
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: res,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.getAllUsers()
-          this.alert = true
-          this.isMsg = res
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
         })
         .catch((err) => {
-          this.alertErr = true
-          this.isMsg = err.data.msg
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          this.$swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.data.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     },
     destroyUser(value) {
       this.user_id = value
       this.deleteUser(this.user_id)
         .then((res) => {
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: res,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.getAllUsers()
-          this.alert = true
-          this.isMsg = res
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
         })
         .catch((err) => {
-          this.alertErr = true
-          this.isMsg = err.data.msg
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          this.$swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.data.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     }
   }

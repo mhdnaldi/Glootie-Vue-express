@@ -1,9 +1,9 @@
 <template>
-  <b-col cols lg="4" sm="12" xs="12" class="card-image">
+  <b-col cols lg="4" md="12" sm="12" xs="12" class="card-image">
     <div v-if="getCart.length < 1">
       <img src="../../assets/icons/cart.png" alt class="cart-img" />
       <h3>Your cart is empty</h3>
-      <h5 style="color:darkgrey">Please add some items from the menu</h5>
+      <h5 style="color: darkgrey">Please add some items from the menu</h5>
     </div>
     <div class="carts" v-for="(value, index) in getCart" :key="index">
       <div>
@@ -29,16 +29,24 @@
       <div>Rp. {{ totalPrice }}</div>
     </div>
     <h6
-      style="text-align: left; text-indent: 20px; font-weight: bold; margin-top: 10px; font-size: 14px"
+      style="
+        text-align: left;
+        text-indent: 20px;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 14px;
+      "
       v-if="totalPrice > 0"
-    >The Price Does Not Include Additional Taxes</h6>
+    >
+      The Price Does Not Include Additional Taxes
+    </h6>
     <div class="checkout" v-if="totalPrice > 0" @click="postOrder">
       <b-button v-b-modal.modal-1>CHECKOUT</b-button>
 
       <b-modal id="modal-1" title="Checkout" hide-footer>
         <div class="modal-invoice">
           <div>
-            <h6>Cashier: {{user.user_name}}</h6>
+            <h6>Cashier: {{ user.user_name }}</h6>
           </div>
           <div>
             <h6>Receipt no: #{{ invoice }}</h6>
@@ -56,16 +64,32 @@
               style="text-align: right"
               v-for="(value, index) in priceModal"
               :key="index"
-            >:Rp. {{ value }}</p>
+            >
+              :Rp. {{ value }}
+            </p>
 
             <p style="text-align: right">Tax 10%: Rp. {{ taxes }}</p>
             <p style="text-align: right">Total: Rp. {{ subTotal }}</p>
           </div>
         </div>
         <div class="modal-button">
-          <button class="btn" style="background-color: aqua" width="100%" @click="cancel">OK</button>
+          <button
+            class="btn"
+            style="background-color: aqua"
+            width="100%"
+            @click="cancel"
+          >
+            OK
+          </button>
           <p style="line-height: 30px; margin-bottom: -2px">OR</p>
-          <button class="btn" style="background-color: pink" width="100%" @click="cancel">SEND EMAIL</button>
+          <button
+            class="btn"
+            style="background-color: pink"
+            width="100%"
+            @click="generatePdf"
+          >
+            DOWNLOAD PDF
+          </button>
         </div>
       </b-modal>
     </div>
@@ -77,6 +101,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import Jspdf from 'jspdf'
 // import axios from 'axios'
 export default {
   name: 'cart',
@@ -107,6 +132,22 @@ export default {
     },
     desc(data) {
       data.qty--
+    },
+    generatePdf() {
+      const doc = new Jspdf()
+      doc.setFont('helvetica')
+      doc.setFontSize(12)
+      doc.text(
+        ` Cashier: ${this.user.user_name}\n Receipt no: #${
+          this.invoice
+        } \n${this.nameModal.map((value, index) => {
+          return ` Item: ${value}. ${this.qtyModal[index]}x = ${this.priceModal[index]}\n`
+        })}\n Tax 10%: Rp. ${this.taxes} \n Total: Rp. ${this.subTotal}`,
+        15,
+        15
+      )
+      doc.save(`Struct #${this.invoice}.pdf`)
+      this.cancel()
     }
   }
 }

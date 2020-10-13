@@ -22,10 +22,12 @@
         <b-col cols="12">
           <div>
             <b-alert v-bind:show="alert">{{ isMsg }}</b-alert>
-            <b-alert v-bind:show="alertErr" variant="danger">{{ isMsg }}</b-alert>
+            <b-alert v-bind:show="alertErr" variant="danger">{{
+              isMsg
+            }}</b-alert>
             <form v-on:submit.prevent="addItem">
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.menu_name"
                 placeholder="Menu name"
@@ -33,30 +35,49 @@
               />
 
               <input
-                style="color: #5D5057"
+                style="color: #5d5057"
                 type="text"
                 v-model="form.menu_price"
                 placeholder="Menu price"
                 required
               />
 
-              <label class="mt-4 ml-2" style="color:#757575">Category</label>
-              <b-form-select v-model="form.category_id" :options="category" style="height: 50px"></b-form-select>
-              <label class="ml-2 mt-2" style="color:#757575">Status</label>
-              <b-form-select v-model="form.menu_status" :options="status" style="height: 50px"></b-form-select>
-              <label class="ml-2 mt-2" style="color:#757575">Choose an image</label>
+              <label class="mt-4 ml-2" style="color: #757575">Category</label>
+              <b-form-select
+                v-model="form.category_id"
+                :options="category"
+                style="height: 50px"
+              ></b-form-select>
+              <label class="ml-2 mt-2" style="color: #757575">Status</label>
+              <b-form-select
+                v-model="form.menu_status"
+                :options="status"
+                style="height: 50px"
+              ></b-form-select>
+              <label class="ml-2 mt-2" style="color: #757575"
+                >Choose an image</label
+              >
               <br />
-              <input class="ml-2" style="color: #5D5057" type="file" @change="handleFile" required />
+              <input
+                class="ml-2"
+                style="color: #5d5057"
+                type="file"
+                @change="handleFile"
+                required
+              />
               <!-- <input type="text" v-model="form.category_id" placeholder="Category" required /> -->
               <!-- <input type="text" v-model="form.menu_status" placeholder="Menu status" required /> -->
               <div class="text-right">
-                <b-button variant="primary" type="submit" v-show="!isUpdate">Save</b-button>
+                <b-button variant="primary" type="submit" v-show="!isUpdate"
+                  >Save</b-button
+                >
                 <b-button
                   variant="success"
                   type="button"
                   v-show="isUpdate"
                   @click="patchMenu"
-                >Update</b-button>
+                  >Update</b-button
+                >
               </div>
             </form>
           </div>
@@ -70,20 +91,24 @@
             <tr>
               <th>Name</th>
               <th>Price</th>
-              <th style="text-align: center;">Category</th>
-              <th style="text-align: center;">Status</th>
-              <th style="text-align: center;">Image</th>
+              <th style="text-align: center">Category</th>
+              <th style="text-align: center">Status</th>
+              <th style="text-align: center">Image</th>
               <th></th>
             </tr>
             <tr v-for="(value, index) in products" :key="index">
-              <td style="line-height:50px">{{ value.menu_name }}</td>
-              <td style="line-height:50px">Rp. {{ value.menu_price }}</td>
-              <td style="text-align: center; line-height:50px">{{ value.category_id }}</td>
-              <td style="text-align: center; line-height:50px">{{ value.menu_status }}</td>
-              <td style="text-align: center; ">
-                <img style="width:60px" :src="port + value.menu_image" alt />
+              <td style="line-height: 50px">{{ value.menu_name }}</td>
+              <td style="line-height: 50px">Rp. {{ value.menu_price }}</td>
+              <td style="text-align: center; line-height: 50px">
+                {{ value.category_id }}
               </td>
-              <td style="text-align: center;">
+              <td style="text-align: center; line-height: 50px">
+                {{ value.menu_status }}
+              </td>
+              <td style="text-align: center">
+                <img style="width: 60px" :src="port + value.menu_image" alt />
+              </td>
+              <td style="text-align: center">
                 <b-button
                   variant="success"
                   style="margin: 10px 10px"
@@ -160,19 +185,23 @@ export default {
       data.append('menu_image', this.form.menu_image)
       this.addMenu(data)
         .then((res) => {
-          this.alert = true
-          this.isMsg = res.msg
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: res.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.getAllMenu()
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
         })
         .catch((err) => {
-          this.alertErr = true
-          this.isMsg = err.data.msg
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          this.$swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.data.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     },
     updateItem(value) {
@@ -202,38 +231,49 @@ export default {
       }
       this.editMenu(setData)
         .then((res) => {
-          this.alert = true
-          this.isMsg = res.msg
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: res.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.getAllMenu()
-          setTimeout(() => {
-            this.alert = false
-          }, 3000)
         })
         .catch((err) => {
-          this.alertErr = true
-          this.isMsg = err.data.msg
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          this.$swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: err.data.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     },
     deleteItem(data) {
       this.menu_id = data.menu_id
       this.deleteMenu(this.menu_id)
         .then((res) => {
-          this.alert = true
-          this.isMsg = res.data.msg
-          this.getAllMenu()
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          this.$swal
+            .fire({
+              title: 'Are you sure?',
+              icon: 'warning',
+              showDenyButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'Yes',
+              denyButtonText: 'Cancel'
+            })
+            .then((res) => {
+              console.log(res)
+              /* Read more about isConfirmed, isDenied below */
+              if (res.isConfirmed) {
+                this.$swal.fire('Item deleted', '', 'success')
+                this.getAllMenu()
+              }
+            })
         })
         .catch((err) => {
-          this.alert = true
-          this.isMsg = err.data.msg
-          setTimeout(() => {
-            this.alertErr = false
-          }, 3000)
+          console.log(err)
         })
     }
   }

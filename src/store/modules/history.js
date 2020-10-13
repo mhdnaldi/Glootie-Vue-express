@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import moment from 'moment'
 export default {
   state: {
     recentProduct: [],
@@ -82,7 +82,7 @@ export default {
             const chartKick = res.data.data
             const charts = []
             chartKick.map(value => {
-              charts.push([value.date.slice(0, 10), value.total])
+              charts.push([moment(value.date).format('MMM Do YY'), value.total])
             })
             context.commit('setChart', charts)
           })

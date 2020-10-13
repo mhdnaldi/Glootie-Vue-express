@@ -1,6 +1,19 @@
 <h1 align='center'>Vue JS - Glootie</h1>
+  <p align="center">
+    <a href="https://glootie.netlify.app">View Demo</a>
+    ·
+    <a href="https://github.com/mhdnaldi/glootie-frontend/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mhdnaldi/glootie-frontend/issues">Request Feature</a>
+  </p>
 
-POINT OF SALE. [More about POS](https://en.wikipedia.org/wiki/Point_of_sale)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/22453547/95569489-d9573f80-0a4f-11eb-93bd-e00f053ac176.jpg" />
+</p>
+
+## About The Project
+
+Glootie is a web application for point of sale, it developed using vue js and express js
 
 ## Built With
 
@@ -11,34 +24,27 @@ POINT OF SALE. [More about POS](https://en.wikipedia.org/wiki/Point_of_sale)
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API Glootie [`here`](https://github.com/mhdnaldi/Glootie-backend)
+3. Backend API Technoker [`here`](https://github.com/mhdnaldi/Glootie-backend)
 
-## How to Install
+## Getting Started
 
-1. Download this Project or you can type `git clone https://github.com/mhdnaldi/Glootie-Vue-express`
+1. Download this Project or you can type `git clone https://github.com/mhdnaldi/glootie-frontend.git`
 2. Open app's directory in CMD or Terminal
 3. Type `npm install` or `yarn install`
-4. Type `npm start`
+4. Add .env file at root folder project
 
-## Visit the Web
-
-You can visit the web [`here`](https://glootie.netlify.app/history)
-
-## Compiles and hot-reloads for development
-
-```
-npm run serve
+```sh
+VUE_APP_URL = URL BACKEND
 ```
 
-## Compiles and minifies for production
+5. Type `npm run serve`
 
-```
-npm run build
-```
+## Acknowledgements
 
-## Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [Axios](https://www.npmjs.com/package/axios)
+- [Vuex](https://vuex.vuejs.org/)
+- [Bootstrap-vue]
+- [Vuex-persistedstate]
 
 ## License
 
