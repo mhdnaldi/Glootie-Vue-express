@@ -27,6 +27,7 @@
             }}</b-alert>
             <form v-on:submit.prevent="addItem">
               <input
+                v-focus
                 style="color: #5d5057"
                 type="text"
                 v-model="form.menu_name"

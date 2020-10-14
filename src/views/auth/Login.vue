@@ -7,6 +7,7 @@
         <b-alert v-bind:show="alertErr" variant="danger">{{ isMsg }}</b-alert>
         <div class="form-group">
           <input
+            v-focus
             type="email"
             class="form-control"
             aria-describedby="emailHelp"
@@ -25,8 +26,17 @@
           />
         </div>
         <div class="login-button">
-          <button type="submit" class="btn login" @click.prevent="onSubmit">Login</button>
-          <button type="button" class="btn reset" @click.prevent="onReset">Reset</button>
+          <button
+            type="submit"
+            class="btn login"
+            @click.prevent="onSubmit"
+            v-fontsize:small
+          >
+            Login
+          </button>
+          <button type="button" class="btn reset" @click.prevent="onReset">
+            Reset
+          </button>
           <p class="nb">
             Don't have an account? please sign-up first
             <router-link to="/register" class="nb-1">Register</router-link>

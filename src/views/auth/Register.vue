@@ -7,6 +7,7 @@
         <b-alert v-bind:show="alertErr" variant="danger">{{ isMsg }}</b-alert>
         <div class="form-group">
           <input
+          v-focus
             type="email"
             class="form-control"
             aria-describedby="emailHelp"

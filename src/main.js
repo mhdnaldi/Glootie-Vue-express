@@ -18,6 +18,32 @@ Vue.use(IconsPlugin)
 Vue.use(VueSweetalert2)
 Vue.config.productionTip = false
 
+Vue.directive('focus', {
+  inserted: function(el) {
+    el.focus()
+  }
+})
+
+Vue.directive('fontsize', {
+  inserted: function(el, binding) {
+    switch (binding.arg) {
+      case 'small':
+        binding.expression = '14px'
+        break
+      case 'medium':
+        binding.expression = '16px'
+        break
+      case 'large':
+        binding.expression = '20px'
+        break
+      default:
+        binding.expression = '12px'
+        break
+    }
+    el.style.fontSize = binding.expression
+  }
+})
+
 new Vue({
   router,
   store, // vuex
