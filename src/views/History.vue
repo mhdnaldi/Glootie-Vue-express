@@ -10,7 +10,7 @@
     </b-row>
     <b-row>
       <Aside />
-      <b-col cols lg="11" style="background-color:#eee">
+      <b-col cols lg="11" style="background-color: #eee">
         <b-row details align="left">
           <div class="box day-income">
             <p class="details-p">Today's Income</p>
@@ -70,7 +70,7 @@
               </tr>
               <tr v-for="(value, index) in recentOrders" :key="index">
                 <td>#{{ value.invoice }}</td>
-                <td>{{value.cashier}}</td>
+                <td>{{ value.cashier }}</td>
                 <td>{{ value.created_at.slice(0, 10) }}</td>
                 <td>
                   <ul v-for="(value, index) in value.orders" :key="index">
@@ -100,7 +100,6 @@ export default {
     this.chart()
     this.weeksOrdersHistory()
     this.yearsIncome()
-    // console.log(this.user)
   },
   computed: {
     ...mapGetters({

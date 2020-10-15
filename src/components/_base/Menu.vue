@@ -1,14 +1,18 @@
 <template>
-  <b-col cols lg="7" md="12" sm="12" xs="12" style="background-color: #cecece; height: 960px">
+  <b-col cols lg="7" md="12" sm="12" xs="12" style="background-color: #cecece">
     <div class="menu-items">
       <div
         v-for="(value, index) in products"
         :key="index"
         class="cards"
-        style="box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset; margin: 10px;  background-color: darkgrey;"
+        style="
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) inset;
+          margin: 10px;
+          background-color: darkgrey;
+        "
       >
         <div class="img-check">
-          <img :src="port+value.menu_image " alt />
+          <img :src="port + value.menu_image" alt />
           <div class="check" v-if="check(value)">
             <img src="../../assets/icons/check.png" alt />
           </div>
@@ -16,7 +20,13 @@
         <h5 style="color: #eee">{{ value.menu_name }}</h5>
         <div class="flex">
           <h6 style="color: #111">Rp. {{ value.menu_price }}</h6>
-          <b-button class="btn" variant="danger" size="sm" @click="addCart( value)">ADD</b-button>
+          <b-button
+            class="btn"
+            variant="danger"
+            size="sm"
+            @click="addCart(value)"
+            >ADD</b-button
+          >
         </div>
       </div>
     </div>

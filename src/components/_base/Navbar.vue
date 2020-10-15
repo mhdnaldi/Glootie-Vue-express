@@ -7,14 +7,19 @@
         </a>
       </div>
       <div>
-        <h2 class="title" style="color: #111; margin-top:2px">Glootie</h2>
+        <h2 class="title" style="color: #111; margin-top: 2px">Glootie</h2>
       </div>
       <div class="two">
         <form v-on:submit.prevent="getInfo">
           <input type="text" v-model="form" placeholder=" Search..." />
           <b-button
             type="submit"
-            style="border-radius: 5px; margin-top: -3px; margin-left: 5px; box-shadow: 1px 1px 2px rgba(0,0,0,0.4)"
+            style="
+              border-radius: 5px;
+              margin-top: -3px;
+              margin-left: 5px;
+              box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            "
             size="sm"
             variant="danger"
             @click="getInfo"

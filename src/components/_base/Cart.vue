@@ -1,5 +1,5 @@
 <template>
-  <b-col cols lg="4" md="12" sm="12" xs="12" class="card-image">
+  <b-col cols lg="4" md="12" sm="12" xs="12">
     <div v-if="getCart.length < 1">
       <img src="../../assets/icons/cart.png" alt class="cart-img" />
       <h3>Your cart is empty</h3>
